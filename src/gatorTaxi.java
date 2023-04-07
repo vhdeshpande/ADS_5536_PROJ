@@ -1,4 +1,3 @@
-import java.awt.desktop.SystemEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,12 +6,12 @@ public class gatorTaxi {
     public static final String NULL_STRING = "NULL";
     List<Operation> operations; //List to store operations read from file
     ResultWriter resultWriter; //Output file writer
-    InputReader inputReader;//input file reader
+    InputFileReader inputFileReader;//input file reader
 
     public gatorTaxi() {
         this.operations = new ArrayList<>();
         this.resultWriter = new ResultWriter();
-        this.inputReader = new InputReader();
+        this.inputFileReader = new InputFileReader();
     }
 
     private void writeResult(String text) {
@@ -33,7 +32,7 @@ public class gatorTaxi {
     }
 
     private void readOperations(String filename) throws Exception{
-        this.operations = inputReader.getOperationsFromFile(filename);
+        this.operations = inputFileReader.getOperationsFromFile(filename);
     }
 
     private void performOperations() {

@@ -5,21 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6592f9eb-c08c-4d36-a801-5a97a47ac842" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ADS_5536_PROJ.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/create_archive.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/InputReader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/OpCode.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Operation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ResultWriter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/gatorTaxi.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sample.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/InputReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/InputFileReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gatorTaxi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gatorTaxi.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,7 +54,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1680845847964</updated>
-      <workItem from="1680845849588" duration="3832000" />
+      <workItem from="1680845849588" duration="3983000" />
     </task>
     <servers />
   </component>

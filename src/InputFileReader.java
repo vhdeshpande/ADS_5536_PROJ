@@ -6,7 +6,7 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class InputReader {
+public class InputFileReader {
 
     //Read the operations from input file and store them in the list to process them later
     public List<Operation> getOperationsFromFile(String filename) throws FileNotFoundException {
