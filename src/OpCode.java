@@ -1,6 +1,5 @@
 //Enum for the operations - Initialize/Insert/Delete/Search
 public enum OpCode {
-    Initialize("Initialize"),
     Insert("Insert"),
     UpdateTrip("UpdateTrip"),
     GetNextRide("GetNextRide"),

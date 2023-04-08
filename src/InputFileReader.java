@@ -38,9 +38,6 @@ public class InputFileReader {
             Integer val2 = null;
             String temp[] = null;
             switch (OpCode.valueOf(tempOp)) {
-                case Initialize:
-                    operation = new Operation(OpCode.Initialize);
-                    break;
 
                 case Insert:
                     temp = data.split(",");
