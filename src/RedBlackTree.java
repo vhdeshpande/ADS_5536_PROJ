@@ -1,5 +1,12 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class RedBlackTree {
     private RedBlackTreeNode root;
+
+    private RedBlackTreeNode newNode;
+
+    private Boolean isDuplicateKey = false;
 
     private boolean ll = false;
     private boolean rr = false;
@@ -10,152 +17,142 @@ public class RedBlackTree {
         root = null;
     }
 
-    RedBlackTreeNode rotateLeft(RedBlackTreeNode node)
+    public void rotateLeft(RedBlackTreeNode node)
     {
-        RedBlackTreeNode x = node.right;
-        RedBlackTreeNode y = x.left;
-        x.left = node;
-        node.right = y;
-        node.parent = x; // parent resetting is also important.
-        if(y!=null)
-            y.parent = node;
-        return x;
+        RedBlackTreeNode rightChild = node.right;
+        node.right = rightChild.left;
+        if (rightChild.left != null) {
+            rightChild.left.parent = node;
+        }
+        rightChild.parent = node.parent;
+        if (node.parent == null) {
+            root = rightChild;
+        } else if (node == node.parent.left) {
+            node.parent.left = rightChild;
+        } else {
+            node.parent.right = rightChild;
+        }
+        rightChild.left = node;
+        node.parent = rightChild;
     }
     //this function performs right rotation
-    RedBlackTreeNode rotateRight(RedBlackTreeNode node)
+    public void rotateRight(RedBlackTreeNode node)
     {
-        RedBlackTreeNode x = node.left;
-        RedBlackTreeNode y = x.right;
-        x.right = node;
-        node.left = y;
-        node.parent = x;
-        if(y!=null)
-            y.parent = node;
-        return x;
+        RedBlackTreeNode leftChild = node.left;
+        node.left = leftChild.right;
+        if (leftChild.right != null) {
+            leftChild.right.parent = node;
+        }
+        leftChild.parent = node.parent;
+        if (node.parent == null) {
+            root = leftChild;
+        } else if (node == node.parent.right) {
+            node.parent.right = leftChild;
+        } else {
+            node.parent.left = leftChild;
+        }
+        leftChild.right = node;
+        node.parent = leftChild;
     }
 
-    RedBlackTreeNode insertHelp(RedBlackTreeNode root, GatorTaxiRide data)
-    {
-        // f is true when RED-RED conflict is there.
-        boolean f=false;
 
-        //recursive calls to insert at proper position according to BST properties.
-        if(root == null)
-            return(new RedBlackTreeNode(data));
-        else if(root.value.getRideNumber() == data.getRideNumber()){
-            System.out.println("Duplicate RideNumber");
-            return root;
-        }
-        else if(data.getRideNumber() < root.value.getRideNumber())
+    public RedBlackTreeNode insert(GatorTaxiRide data) {
+        isDuplicateKey = false;
+        RedBlackTreeNode newNode = new RedBlackTreeNode(data);
+        if(this.root == null)
         {
-            root.left = insertHelp(root.left, data);
-            root.left.parent = root;
-            if(root!=this.root)
-            {
-                if(root.color == Color.RED && root.left.color == Color.RED)
-                    f = true;
-            }
+            this.root = newNode;
+            this.root.color = Color.BLACK;
+            return this.root;
         }
         else
         {
-            root.right = insertHelp(root.right,data);
-            root.right.parent = root;
-            if(root!=this.root)
-            {
-                if(root.color == Color.RED && root.right.color == Color.RED)
-                    f = true;
+            redBlackTreeInsertHelper(this.root, newNode);
+            if(this.isDuplicateKey){
+                return null;
             }
-            // at the same time of insertion, we are also assigning parent nodes
-            // also we are checking for RED RED conflicts
+            handleRRConflict(newNode);
+            this.root.color = Color.BLACK;
+            return newNode;
         }
 
-        // now lets rotate.
-        if(this.ll) // for left rotate.
-        {
-            root = rotateLeft(root);
-            root.color = Color.BLACK;
-            root.left.color = Color.RED;
-            this.ll = false;
-        }
-        else if(this.rr) // for right rotate
-        {
-            root = rotateRight(root);
-            root.color = Color.BLACK;
-            root.right.color = Color.RED;
-            this.rr  = false;
-        }
-        else if(this.rl)  // for right and then left
-        {
-            root.right = rotateRight(root.right);
-            root.right.parent = root;
-            root = rotateLeft(root);
-            root.color = Color.BLACK;
-            root.left.color = Color.RED;
+    }
 
-            this.rl = false;
-        }
-        else if(this.lr)  // for left and then right.
+    private void handleRRConflict(RedBlackTreeNode node) {
+        while (node.parent != null && node.parent.color == Color.RED)
         {
-            root.left = rotateLeft(root.left);
-            root.left.parent = root;
-            root = rotateRight(root);
-            root.color = Color.BLACK;
-            root.right.color = Color.RED;
-            this.lr = false;
-        }
-        // when rotation and recolouring is done flags are reset.
-        // Now lets take care of RED RED conflict
-        if(f)
-        {
-            if(root.parent.right == root)  // to check which child is the current node of its parent
+            if (node.parent == node.parent.parent.left)
             {
-                if(root.parent.left == null || root.parent.left.color == Color.BLACK)  // case when parent's sibling is black
-                {// perform certain rotation and recolouring. This will be done while backtracking. Hence setting up respective flags.
-                    if(root.left!= null && root.left.color == Color.RED)
-                        this.rl = true;
-                    else if(root.right != null && root.right.color == Color.RED)
-                        this.ll = true;
-                }
-                else // case when parent's sibling is red
+                RedBlackTreeNode uncle = node.parent.parent.right;
+                if (uncle != null && uncle.color == Color.RED)
                 {
-                    root.parent.left.color = Color.BLACK;
-                    root.color = Color.BLACK;
-                    if(root.parent!=this.root)
-                        root.parent.color = Color.RED;
+                    node.parent.color = Color.BLACK;
+                    uncle.color = Color.BLACK;
+                    node.parent.parent.color = Color.RED;
+                    node = node.parent.parent;
+                }
+                else
+                {
+                    if (node == node.parent.right)
+                    {
+                        node = node.parent;
+                        rotateLeft(node);
+                    }
+                    node.parent.color = Color.BLACK;
+                    node.parent.parent.color = Color.RED;
+                    rotateRight(node.parent.parent);
                 }
             }
             else
             {
-                if(root.parent.right == null || root.parent.right.color == Color.BLACK)
+                RedBlackTreeNode uncle = node.parent.parent.left;
+                if (uncle != null && uncle.color == Color.RED)
                 {
-                    if(root.left != null && root.left.color == Color.RED)
-                        this.rr = true;
-                    else if(root.right != null && root.right.color == Color.RED)
-                        this.lr = true;
-                }
-                else
+                    node.parent.color = Color.BLACK;
+                    uncle.color = Color.BLACK;
+                    node.parent.parent.color = Color.RED;
+                    node = node.parent.parent;
+                } else
                 {
-                    root.parent.right.color = Color.BLACK;
-                    root.color = Color.BLACK;
-                    if(root.parent!=this.root)
-                        root.parent.color = Color.RED;
+                    if (node == node.parent.left)
+                    {
+                        node = node.parent;
+                        rotateRight(node);
+                    }
+                    node.parent.color = Color.BLACK;
+                    node.parent.parent.color = Color.RED;
+                    rotateLeft(node.parent.parent);
                 }
             }
-            f = false;
         }
-        return(root);
     }
 
-    // function to insert data into tree.
-    public void insert(GatorTaxiRide data)
-    {
-        if(this.root==null)
+    private RedBlackTreeNode redBlackTreeInsertHelper(RedBlackTreeNode root, RedBlackTreeNode newNode) {
+        if(root == null)
         {
-            this.root = new RedBlackTreeNode(data);
-            this.root.color = Color.BLACK;
+            return newNode;
+        }
+        else if(root.value.getRideNumber() == newNode.value.getRideNumber())
+        {
+            isDuplicateKey = true;
+            return null;
+        }
+        else if(newNode.value.getRideNumber() < root.value.getRideNumber())
+        {
+            root.left = redBlackTreeInsertHelper(root.left, newNode);
+            if(root.left != null){
+                root.left.parent = root;
+            }
+            return root;
         }
         else
-            this.root = insertHelp(this.root,data);
+        {
+            root.right = redBlackTreeInsertHelper(root.right, newNode);
+            if(root.right != null){
+                root.right.parent = root;
+            }
+            return root;
+        }
     }
 
     void inorderTraversalHelper(RedBlackTreeNode node)
@@ -163,7 +160,7 @@ public class RedBlackTree {
         if(node!=null)
         {
             inorderTraversalHelper(node.left);
-            System.out.printf("(%d %d %d)", node.value.getRideNumber(), node.value.getRideCost(), node.value.getTripDuration());
+            System.out.printf("(%d %d %d (%s))", node.value.getRideNumber(), node.value.getRideCost(), node.value.getTripDuration(), node.color.toString());
             inorderTraversalHelper(node.right);
         }
     }
@@ -217,21 +214,22 @@ public class RedBlackTree {
         return curr;
     }
 
-    public void cancelRide(Integer rideNumber)
+    public RedBlackTreeNode cancelRide(Integer rideNumber)
     {
         if(this.root == null)
         {
-            return;
+            return null;
         }
         else
         {
             RedBlackTreeNode nodeToDelete = search(rideNumber);
             if(nodeToDelete.value.getRideNumber() != rideNumber){
-                return;
+                return null;
             }
             else
             {
                 deleteNode(nodeToDelete);
+                return nodeToDelete;
             }
         }
 
@@ -378,6 +376,30 @@ public class RedBlackTree {
                         parent.color = Color.BLACK;
                 }
             }
+        }
+    }
+
+    public List<RedBlackTreeNode> rangeSearch(int a, int b) {
+        List<RedBlackTreeNode> result = new ArrayList<>();
+        rangeSearch(this.root, a, b, result);
+        return result;
+    }
+
+    private void rangeSearch(RedBlackTreeNode node, int a, int b, List<RedBlackTreeNode> result) {
+        if (node == null) {
+            return;
+        }
+
+        if (node.value.getRideNumber() >= a && node.value.getRideNumber() <= b) {
+            result.add(node);
+        }
+
+        if (node.value.getRideNumber() >= a) {
+            rangeSearch(node.left, a, b, result);
+        }
+
+        if (node.value.getRideNumber() <= b) {
+            rangeSearch(node.right, a, b, result);
         }
     }
 

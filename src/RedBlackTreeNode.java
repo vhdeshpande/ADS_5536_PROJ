@@ -4,7 +4,18 @@ public class RedBlackTreeNode {
     public RedBlackTreeNode parent;
     public RedBlackTreeNode left;
     public RedBlackTreeNode right;
+
     public Color color;
+
+    public MinHeapNode getPtrToMinHeapNode() {
+        return ptrToMinHeapNode;
+    }
+
+    public void setPtrToMinHeapNode(MinHeapNode ptrToMinHeapNode) {
+        this.ptrToMinHeapNode = ptrToMinHeapNode;
+    }
+
+    public MinHeapNode ptrToMinHeapNode;
 
     RedBlackTreeNode(GatorTaxiRide value){
         super();

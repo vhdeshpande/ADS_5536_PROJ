@@ -1,5 +1,5 @@
 //Enum for the operations - Initialize/Insert/Delete/Search
-public enum OpCode {
+public enum OperationCode {
     Insert("Insert"),
     UpdateTrip("UpdateTrip"),
     GetNextRide("GetNextRide"),
@@ -7,7 +7,7 @@ public enum OpCode {
     Print("Print");
 
     private final String label;
-    OpCode(String label){
+    OperationCode(String label){
         this.label = label;
     }
 

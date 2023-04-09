@@ -1,6 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -10,7 +10,7 @@ public class InputFileReader {
 
     //Read the operations from input file and store them in the list to process them later
     public List<Operation> getOperationsFromFile(String filename) throws FileNotFoundException {
-        List<Operation> operations = new LinkedList<>();
+        List<Operation> operations = new ArrayList<>();
         File file = new File(filename);
         Scanner sc = new Scanner(file);
 
@@ -37,29 +37,29 @@ public class InputFileReader {
             Integer val1 = null;
             Integer val2 = null;
             String temp[] = null;
-            switch (OpCode.valueOf(tempOp)) {
+            switch (OperationCode.valueOf(tempOp)) {
 
                 case Insert:
                     temp = data.split(",");
                     val1 = Integer.parseInt(temp[0]);
                     val2 = Integer.parseInt(temp[1]);
                     Integer  val3= Integer.parseInt(temp[2]);
-                    operation = new Operation(OpCode.Insert, val1, val2, val3);
+                    operation = new Operation(OperationCode.Insert, val1, val2, val3);
                     break;
 
                 case GetNextRide:
-                    operation = new Operation(OpCode.GetNextRide);
+                    operation = new Operation(OperationCode.GetNextRide);
                     break;
 
                 case UpdateTrip:
                     temp = data.split(",");
                     val1 = Integer.parseInt(temp[0]);
                     val2 = Integer.parseInt(temp[1]);
-                    operation = new Operation(OpCode.UpdateTrip, val1, val2);
+                    operation = new Operation(OperationCode.UpdateTrip, val1, val2);
                     break;
 
                 case CancelRide:
-                    operation = new Operation(OpCode.CancelRide, Integer.parseInt(data));
+                    operation = new Operation(OperationCode.CancelRide, Integer.parseInt(data));
                     break;
 
                 case Print:
@@ -69,7 +69,7 @@ public class InputFileReader {
                     if (temp.length > 1) {
                         val2 = Integer.parseInt(temp[1]);
                     }
-                    operation = new Operation(OpCode.Print, val1, val2);
+                    operation = new Operation(OperationCode.Print, val1, val2);
                     break;
                 default:
                     break;
