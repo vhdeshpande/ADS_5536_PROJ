@@ -17,6 +17,46 @@ public class RedBlackTreeNode {
 
     public MinHeapNode ptrToMinHeapNode;
 
+    public GatorTaxiRide getValue() {
+        return value;
+    }
+
+    public void setValue(GatorTaxiRide value) {
+        this.value = value;
+    }
+
+    public RedBlackTreeNode getParent() {
+        return parent;
+    }
+
+    public void setParent(RedBlackTreeNode parent) {
+        this.parent = parent;
+    }
+
+    public RedBlackTreeNode getLeft() {
+        return left;
+    }
+
+    public void setLeft(RedBlackTreeNode left) {
+        this.left = left;
+    }
+
+    public RedBlackTreeNode getRight() {
+        return right;
+    }
+
+    public void setRight(RedBlackTreeNode right) {
+        this.right = right;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
     RedBlackTreeNode(GatorTaxiRide value){
         super();
         this.value = value;

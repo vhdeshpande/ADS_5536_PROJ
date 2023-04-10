@@ -18,4 +18,10 @@ public class MinHeapNode {
         this.value = value;
         this.index = index;
     }
+
+    public MinHeapNode(GatorTaxiRide value, int index, RedBlackTreeNode ptrToRBTreeNode) {
+        this.value = value;
+        this.index = index;
+        this.ptrToRBTreeNode = ptrToRBTreeNode;
+    }
 }

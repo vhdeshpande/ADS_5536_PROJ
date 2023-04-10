@@ -39,22 +39,22 @@ public class MinHeap {
     }
 
     private void swap(int index1, int index2) {
-        MinHeapNode temp = minHeap[index1];
-        minHeap[index1] = minHeap[index2];
-        minHeap[index2] = temp;
-        minHeap[index1].index = index1;
-        minHeap[index2].index = index2;
+        MinHeapNode temp = this.minHeap[index1];
+        this.minHeap[index1] = this.minHeap[index2];
+        this.minHeap[index2] = temp;
+        this.minHeap[index1].index = index1;
+        this.minHeap[index2].index = index2;
     }
 
     public MinHeapNode removeMin() {
         if (isEmpty()) {
             return null;
         }
-        MinHeapNode minNode = minHeap[0];
-        minHeap[0] = minHeap[size-1];
-        minHeap[0].setIndex(0);
-        minHeap[size-1] = null;
-        size--;
+        MinHeapNode minNode = new MinHeapNode(this.minHeap[0].value, 0, this.minHeap[0].getPtrToRBTreeNode());
+        this.minHeap[0] = this.minHeap[size-1];
+        this.minHeap[0].setIndex(0);
+        this.minHeap[size-1] = null;
+        this.size--;
         siftDown(0);
         return minNode;
     }
@@ -67,7 +67,7 @@ public class MinHeap {
     public void print()
     {
         for (int i = 0; i < size; i++) {
-            System.out.print("(" + minHeap[i].value.getRideNumber() + " " + minHeap[i].value.getRideCost() + " " + minHeap[i].value.getTripDuration() + ") ");
+            System.out.print("(" + this.minHeap[i].value.getRideNumber() + " " + this.minHeap[i].value.getRideCost() + " " + minHeap[i].value.getTripDuration() + ") ");
         }
 
     }
@@ -76,14 +76,14 @@ public class MinHeap {
         // Find the index of the node to be deleted
         int index = node.getIndex();
         // Replace the node with the last node in the heap
-        minHeap[index] = minHeap[size-1];
-        minHeap[index].setIndex(index);
-        minHeap[size-1] = null;
-        size--;
+        this.minHeap[index] = this.minHeap[this.size-1];
+        this.minHeap[index].setIndex(index);
+        this.minHeap[this.size-1] = null;
+        this.size--;
 
         // Perform a sift-up or sift-down operation to restore the heap property
-        if(minHeap[index] != null){
-            if (index == 0 || compare(minHeap[index], minHeap[getParentIndex(index)]) >= 0) {
+        if(this.minHeap[index] != null){
+            if (index == 0 || compare(this.minHeap[index], this.minHeap[getParentIndex(index)]) >= 0) {
                 siftDown(index);
             } else {
                 siftUp(index);
@@ -97,10 +97,10 @@ public class MinHeap {
         int smallest = index;
 
         // Find the smallest of the three nodes: the current node and its two children
-        if (left < size && compare(minHeap[left], minHeap[smallest]) < 0) {
+        if (left < size && compare(this.minHeap[left], this.minHeap[smallest]) < 0) {
             smallest = left;
         }
-        if (right < size && compare(minHeap[right], minHeap[smallest]) < 0) {
+        if (right < size && compare(this.minHeap[right], this.minHeap[smallest]) < 0) {
             smallest = right;
         }
 
