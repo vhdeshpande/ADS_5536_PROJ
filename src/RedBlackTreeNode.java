@@ -26,6 +26,14 @@ public class RedBlackTreeNode {
         this.color = Color.RED;
     }
 
+    public RedBlackTreeNode(GatorTaxiRide value, MinHeapNode ptrToMinHeapNode) {
+        this.value = value;
+        this.parent = null;
+        this.left = null;
+        this.right = null;
+        this.ptrToMinHeapNode = ptrToMinHeapNode;
+    }
+
     public RedBlackTreeNode sibling() {
         // sibling null if no parent
         if (parent == null)

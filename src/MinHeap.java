@@ -50,23 +50,12 @@ public class MinHeap {
         if (isEmpty()) {
             return null;
         }
-
-        MinHeapNode minNode = minHeap[1];
-        minHeap[1] = minHeap[size--];
-        int current = 1;
-        int child = current * 2;
-        while (child <= size) {
-            if (child + 1 <= size && compare(minHeap[child+1], minHeap[child]) < 0) {
-                child++;
-            }
-            if (compare(minHeap[child], minHeap[current]) < 0) {
-                swap(current, child);
-            } else {
-                break;
-            }
-            current = child;
-            child = current * 2;
-        }
+        MinHeapNode minNode = minHeap[0];
+        minHeap[0] = minHeap[size-1];
+        minHeap[0].setIndex(0);
+        minHeap[size-1] = null;
+        size--;
+        siftDown(0);
         return minNode;
     }
 
@@ -85,29 +74,20 @@ public class MinHeap {
 
     public void deleteNode(MinHeapNode node) {
         // Find the index of the node to be deleted
-        int index = -1;
-        for (int i = 1; i <= size; i++) {
-            if (minHeap[i].equals(node)) {
-                index = i;
-                break;
-            }
-        }
-
-        if (index == -1) {
-            // Node not found
-            return;
-        }
-
+        int index = node.getIndex();
         // Replace the node with the last node in the heap
-        minHeap[index] = minHeap[size];
-        minHeap[size] = null;
+        minHeap[index] = minHeap[size-1];
+        minHeap[index].setIndex(index);
+        minHeap[size-1] = null;
         size--;
 
         // Perform a sift-up or sift-down operation to restore the heap property
-        if (index == 1 || compare(minHeap[index], minHeap[getParentIndex(index)]) >= 0) {
-            siftDown(index);
-        } else {
-            siftUp(index);
+        if(minHeap[index] != null){
+            if (index == 0 || compare(minHeap[index], minHeap[getParentIndex(index)]) >= 0) {
+                siftDown(index);
+            } else {
+                siftUp(index);
+            }
         }
     }
 

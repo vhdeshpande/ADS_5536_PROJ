@@ -8,10 +8,6 @@ public class RedBlackTree {
 
     private Boolean isDuplicateKey = false;
 
-    private boolean ll = false;
-    private boolean rr = false;
-    private boolean lr = false;
-    private boolean rl = false;
     public RedBlackTree(){
         super();
         root = null;
@@ -228,8 +224,9 @@ public class RedBlackTree {
             }
             else
             {
+                RedBlackTreeNode nodeCancelled = new RedBlackTreeNode(nodeToDelete.value, nodeToDelete.getPtrToMinHeapNode());
                 deleteNode(nodeToDelete);
-                return nodeToDelete;
+                return nodeCancelled;
             }
         }
 
@@ -240,21 +237,15 @@ public class RedBlackTree {
         boolean uvBlack = ((nodeToReplace == null || nodeToReplace.color == Color.BLACK) && (node.color == Color.BLACK));
         RedBlackTreeNode parent = node.parent;
         if (nodeToReplace == null) {
-            if (node == root) {
-                root = null;
+            if (node == this.root) {
+                this.root = null;
             } else {
                 if (uvBlack) {
-                    // u and v both black
-                    // v is leaf, fix double black at v
                     fixDoubleBlack(node);
                 } else {
-                    // u or v is red
                     if (node.sibling() != null)
-                        // sibling is not null, make it red"
                         node.sibling().color = Color.RED;
                 }
-
-                // delete v from the tree
                 if (node.isOnLeft()) {
                     parent.left = null;
                 } else {
@@ -265,7 +256,7 @@ public class RedBlackTree {
         }
         if (node.left == null || node.right == null) {
             // v has 1 child
-            if (node == root) {
+            if (node == this.root) {
                 // v is root, assign the value of u to v, and delete u
                 node.value = nodeToReplace.value;
                 node.left = node.right = null;
@@ -290,7 +281,6 @@ public class RedBlackTree {
 
         // v has 2 children, swap values with successor and recurse
         swapValues(nodeToReplace, node);
-        swapValues(nodeToReplace, node);
         deleteNode(nodeToReplace);
     }
 
@@ -300,7 +290,6 @@ public class RedBlackTree {
         node1.value = node2.value;
         node2.value = temp;
     }
-
     public RedBlackTreeNode replaceNode(RedBlackTreeNode node){
         if (node.left != null && node.right != null) {
             RedBlackTreeNode curr = node.right;

@@ -1,6 +1,7 @@
 public class GatorTaxiRide {
     private int rideNumber;
     private int rideCost;
+    private int tripDuration;
 
     public GatorTaxiRide(int rideNumber, int rideCost, int tripDuration) {
         this.rideNumber = rideNumber;
@@ -32,5 +33,4 @@ public class GatorTaxiRide {
         this.tripDuration = tripDuration;
     }
 
-    private int tripDuration;
 }

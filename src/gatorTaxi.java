@@ -34,34 +34,34 @@ public class gatorTaxi {
         }
     }
 
-    private void readOperations(String filename) throws Exception{
-        this.operations = fileReader.getOperationsFromFile(filename);
+    private void readOperations(String fileName) throws Exception{
+        this.operations = fileReader.getOperationsFromFile(fileName);
     }
 
     private void performOperations() {
         for(Operation operation: operations)
             switch (operation.getOperationCode()) {
                 case Print:
-//                    if(operation.getVal2() == null)
-//                    {
-//                        this.print(operation.getVal1());
-//                    }
-//                    else
-//                    {
-//                        this.print(operation.getVal1(), operation.getVal2());
-//                    }
+                    if(operation.getVal2() == null)
+                    {
+                        this.print(operation.getVal1());
+                    }
+                    else
+                    {
+                        this.print(operation.getVal1(), operation.getVal2());
+                    }
                     break;
                 case GetNextRide:
-//                    this.getNextRide();
+                    this.getNextRide();
                     break;
                 case Insert:
                     this.insert(operation.getVal1(), operation.getVal2(), operation.getVal3());
                     break;
                 case CancelRide:
-//                    this.cancelRide(operation.getVal1());
+                    this.cancelRide(operation.getVal1());
                     break;
                 case UpdateTrip:
-//                    this.updateTrip(operation.getVal1(), operation.getVal2());
+                    this.updateTrip(operation.getVal1(), operation.getVal2());
                     break;
 
             }
@@ -72,64 +72,84 @@ public class gatorTaxi {
     private void updateTrip(Integer rideNumber, Integer newTripDuration) {
         System.out.println("\n---Update Trip---");
         RedBlackTreeNode node = this.redBlackTree.search(rideNumber);
-        Integer oldTripDuration = node.value.getTripDuration();
-        if(newTripDuration <= oldTripDuration)
-        {
-            node.value.setTripDuration(newTripDuration);
+        if(node != null && node.value.getRideNumber() == rideNumber){
+            Integer oldTripDuration = node.value.getTripDuration();
+            Integer oldRideCost = node.value.getRideCost();
+            if(newTripDuration <= oldTripDuration)
+            {
+                node.value.setTripDuration(newTripDuration);
+            }
+            else if(oldTripDuration < newTripDuration && (2 * oldTripDuration) >= newTripDuration)
+            {
+                this.redBlackTree.deleteNode(node);
+                this.minHeap.deleteNode(node.getPtrToMinHeapNode());
+                insert(rideNumber, oldRideCost + 10, newTripDuration);
+            }
+            else if(newTripDuration > (2 * oldTripDuration))
+            {
+                cancelRide(rideNumber);
+            }
         }
-        else if(oldTripDuration < newTripDuration && (2 * oldTripDuration) >= newTripDuration)
-        {
-            cancelRide(rideNumber);
-            insert(rideNumber, node.value.getRideCost() + 10, newTripDuration);
-        }
-        else if(newTripDuration > (2 * oldTripDuration))
-        {
-            cancelRide(rideNumber);
-        }
-    }
+        System.out.println("\n---RBT---");
+        redBlackTree.inorderTraversal();
 
+        System.out.println("\n---MH---");
+        minHeap.print();
+
+    }
     private void getNextRide() {
         System.out.println("\n---Get Next Ride---");
         MinHeapNode node = this.minHeap.removeMin();
         if (node != null){
             System.out.print("(" + node.value.getRideNumber() + ", " + node.value.getRideCost() + ", " + node.value.getTripDuration() + ") ");
-//            this.redBlackTree.deleteNode(node.ptrToRBTreeNode);
+            this.redBlackTree.deleteNode(node.ptrToRBTreeNode);
+            this.writeResult(getGatorTaxiRideString(node.value));
         }
         else
         {
-            System.out.println("No active ride requests");
+            this.writeResult("No active ride requests");
         }
     }
 
     private void print(Integer rideNumber) {
         System.out.println("\n---Print---");
         RedBlackTreeNode node = this.redBlackTree.search(rideNumber);
-
-        if (node != null){
+        if (node != null && node.value.getRideNumber() == rideNumber){
             System.out.print("(" + node.value.getRideNumber() + ", " + node.value.getRideCost() + ", " + node.value.getTripDuration() + ") ");
+            this.writeResult(getGatorTaxiRideString(node.value));
         }
         else
         {
             System.out.print("(" + 0 + ", " + 0 + ", " + 0 + ") ");
+            this.writeResult(getGatorTaxiRideString(new GatorTaxiRide(0,0,0)));
         }
     }
 
     private void print(Integer rideNumber1, Integer rideNumber2) {
         System.out.println("\n---Print Range Search---");
         List<RedBlackTreeNode> result = this.redBlackTree.rangeSearch(rideNumber1, rideNumber2);
+        String res = "";
         for (RedBlackTreeNode node : result){
             if (node != null){
                 System.out.print("(" + node.value.getRideNumber() + ", " + node.value.getRideCost() + ", " + node.value.getTripDuration() + ") ");
+                res = res + getGatorTaxiRideString(node.value);
             }
         }
+        this.writeResult(res);
+
     }
 
     private void cancelRide(Integer rideNumber) {
         System.out.println("\n---Cancel---");
         RedBlackTreeNode nodeToDelete = this.redBlackTree.cancelRide(rideNumber);
-//        this.minHeap.deleteNode(nodeToDelete.getPtrToMinHeapNode());
-        System.out.println();
+        if(nodeToDelete != null){
+            this.minHeap.deleteNode(nodeToDelete.getPtrToMinHeapNode());
+        }
+        System.out.println("\n---RBT---");
         redBlackTree.inorderTraversal();
+
+        System.out.println("\n---MH---");
+        minHeap.print();
     }
 
     private void insert(int rideNumber, int rideCost, int tripDuration) {
@@ -153,6 +173,10 @@ public class gatorTaxi {
 
         System.out.println("\n---MH---");
         minHeap.print();
+    }
+
+    public String getGatorTaxiRideString(GatorTaxiRide gatorTaxiRide){
+        return "(" + gatorTaxiRide.getRideNumber() + "," + gatorTaxiRide.getRideCost() + "," + gatorTaxiRide.getTripDuration() + ")";
     }
 
 
