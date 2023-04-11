@@ -1,4 +1,5 @@
 public enum Color {
+
     RED("Red"),
     BLACK("Black");
 

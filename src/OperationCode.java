@@ -1,17 +1,23 @@
 //Enum for the operations - Initialize/Insert/Delete/Search
 public enum OperationCode {
-    Insert("Insert"),
-    UpdateTrip("UpdateTrip"),
-    GetNextRide("GetNextRide"),
-    CancelRide("CancelRide"),
-    Print("Print");
 
-    private final String label;
-    OperationCode(String label){
-        this.label = label;
+    Print("Print"),
+
+    GetNextRide("GetNextRide"),
+
+    Insert("Insert"),
+
+    CancelRide("CancelRide"),
+
+    UpdateTrip("UpdateTrip");
+
+    private final String operation;
+
+    OperationCode(String operation){
+        this.operation = operation;
     }
 
     public String toString(){
-        return  this.label;
+        return  this.operation;
     }
 }

@@ -4,8 +4,6 @@ import java.util.List;
 public class RedBlackTree {
     private RedBlackTreeNode root;
 
-    private RedBlackTreeNode newNode;
-
     private Boolean isDuplicateKey = false;
 
     public RedBlackTree(){
@@ -210,28 +208,6 @@ public class RedBlackTree {
         return curr;
     }
 
-    public RedBlackTreeNode cancelRide(Integer rideNumber)
-    {
-        if(this.root == null)
-        {
-            return null;
-        }
-        else
-        {
-            RedBlackTreeNode nodeToDelete = search(rideNumber);
-            if(nodeToDelete.value.getRideNumber() != rideNumber){
-                return null;
-            }
-            else
-            {
-                RedBlackTreeNode nodeCancelled = new RedBlackTreeNode(nodeToDelete.value, new MinHeapNode(nodeToDelete.value, nodeToDelete.ptrToMinHeapNode.index));
-                deleteNode(nodeToDelete);
-                return nodeCancelled;
-            }
-        }
-
-    }
-
     public void deleteNode(RedBlackTreeNode node){
             // case 1: node is a leaf
             if (node.left == null && node.right == null) {
@@ -240,7 +216,7 @@ public class RedBlackTree {
                     return;
                 }
                 if (node == null || node.color == Color.BLACK) {
-                    fixDoubleBlack(node);
+                    handleDoubleBlackConflict(node);
                 }
                 if (node == node.parent.left) {
                     node.parent.left = null;
@@ -263,7 +239,7 @@ public class RedBlackTree {
                 }
                 if (node == null || node.color == Color.BLACK) {
                     if (child == null || child.color == Color.BLACK) {
-                        fixDoubleBlack(node);
+                        handleDoubleBlackConflict(node);
                     } else {
                         child.color = Color.BLACK;
                     }
@@ -279,65 +255,14 @@ public class RedBlackTree {
             }
 
             // case 3: node has two children
-            RedBlackTreeNode successor = getSuccessor(node);
+            RedBlackTreeNode successor = getInorderSuccessor(node);
             node.value = successor.value;
             MinHeapNode newNode = successor.ptrToMinHeapNode;
             newNode.ptrToRBTreeNode = node;
             node.ptrToMinHeapNode = newNode;
             deleteNode(successor);
-
-//        this.root = deleteHelper(this.root, node);
-//        RedBlackTreeNode nodeToReplace = replaceNode(node);
-//        boolean uvBlack = ((nodeToReplace == null || nodeToReplace.color == Color.BLACK) && (node.color == Color.BLACK));
-//        RedBlackTreeNode parent = node.parent;
-//        if (nodeToReplace == null) {
-//            if (node == this.root) {
-//                this.root = null;
-//            } else {
-//                if (uvBlack) {
-//                    fixDoubleBlack(node);
-//                } else {
-//                    if (node.sibling() != null)
-//                        node.sibling().color = Color.RED;
-//                }
-//                if (node.isOnLeft()) {
-//                    parent.left = null;
-//                } else {
-//                    parent.right = null;
-//                }
-//            }
-//            return;
-//        }
-//        if (node.left == null || node.right == null) {
-//            // v has 1 child
-//            if (node == this.root) {
-//                // v is root, assign the value of u to v, and delete u
-//                node.value = nodeToReplace.value;
-//                node.left = node.right = null;
-//            } else {
-//                // Detach v from tree and move u up
-//                if (node.isOnLeft()) {
-//                    parent.left = nodeToReplace;
-//                } else {
-//                    parent.right = nodeToReplace;
-//                }
-//                node.parent = parent;
-//                if (uvBlack) {
-//                    // u and v both black, fix double black at u
-//                    fixDoubleBlack(nodeToReplace);
-//                } else {
-//                    // u or v red, color u black
-//                    nodeToReplace.color = Color.BLACK;
-//                }
-//            }
-//            return;
-//        }
-//
-//        // v has 2 children, swap values with successor and recurse
-//        swapValues(nodeToReplace, node);
-//        deleteNode(nodeToReplace);
     }
-    private RedBlackTreeNode getSuccessor(RedBlackTreeNode node) {
+    private RedBlackTreeNode getInorderSuccessor(RedBlackTreeNode node) {
         RedBlackTreeNode successor = node.right;
         while (successor.left != null) {
             successor = successor.left;
@@ -345,45 +270,6 @@ public class RedBlackTree {
         return successor;
     }
 
-    private RedBlackTreeNode deleteHelper(RedBlackTreeNode node, RedBlackTreeNode nodeToDelete) {
-        if (node == null) {
-            return null;
-        }
-        if (nodeToDelete.value.getRideNumber() < node.value.getRideNumber()) {
-            // key is smaller than current node, search left subtree
-            node.left = deleteHelper(node.left, nodeToDelete);
-        } else if (nodeToDelete.value.getRideNumber() > node.value.getRideNumber()) {
-            // key is greater than current node, search right subtree
-            node.right = deleteHelper(node.right, nodeToDelete);
-        } else {
-            // found the node to delete
-            if (node.left == null && node.right == null) {
-                // case 1: node to be deleted has no children
-                if (node.color == Color.BLACK) {
-                    fixDoubleBlack(node);
-                }
-                return null;
-            } else if (node.left == null || node.right == null) {
-                // case 2: node to be deleted has one child
-                RedBlackTreeNode child = node.left != null ? node.left : node.right;
-                if (node.color == Color.BLACK) {
-                    if (child.color == Color.RED) {
-                        child.color = Color.BLACK;
-                    } else {
-                        fixDoubleBlack(child);
-                    }
-                }
-                return child;
-            } else {
-                // case 3: node to be deleted has two children
-                RedBlackTreeNode temp = minValueNode(node.right);
-                node.value = temp.value;
-                node.ptrToMinHeapNode = temp.ptrToMinHeapNode;
-                node.right = deleteHelper(node.right, temp);
-            }
-        }
-        return node;
-    }
     private RedBlackTreeNode minValueNode(RedBlackTreeNode node) {
         RedBlackTreeNode current = node;
         /* loop down to find the leftmost leaf */
@@ -393,102 +279,6 @@ public class RedBlackTree {
         return current;
     }
 
-    public void swapValues(RedBlackTreeNode node1, RedBlackTreeNode node2) {
-        GatorTaxiRide temp;
-        temp = node1.value;
-        node1.value = node2.value;
-        node2.value = temp;
-
-        MinHeapNode tempPtr = node1.getPtrToMinHeapNode();
-        node1.setPtrToMinHeapNode(node2.getPtrToMinHeapNode());
-        node2.setPtrToMinHeapNode(tempPtr);
-
-    }
-    public RedBlackTreeNode replaceNode(RedBlackTreeNode node){
-        if (node.left != null && node.right != null) {
-            RedBlackTreeNode curr = node.right;
-            while (curr.left != null) {
-                curr = curr.left;
-            }
-            return curr;
-        }
-        if (node.left != null) {
-            return node.left;
-        }
-        if (node.right != null) {
-            return node.right;
-        }
-        return null;
-    }
-
-//    public RedBlackTreeNode fixDoubleBlack(RedBlackTreeNode node) {
-//        if (node == root) {
-//            // Reached the root node, simply return
-//            return;
-//        }
-//
-//        RedBlackNode sibling = node.getSibling();
-//        RedBlackNode parent = node.parent;
-//
-//        if (sibling == null) {
-//            // No sibling, double black pushed up
-//            fixDoubleBlack(parent);
-//        } else {
-//            if (sibling.isRed) {
-//                // Sibling is red
-//                parent.isRed = true;
-//                sibling.isRed = false;
-//                if (isLeftChild(sibling)) {
-//                    // left case
-//                    rightRotate(parent);
-//                } else {
-//                    // right case
-//                    leftRotate(parent);
-//                }
-//                fixDoubleBlack(node);
-//            } else {
-//                // Sibling is black
-//                if ((sibling.left != null && sibling.left.isRed) || (sibling.right != null && sibling.right.isRed)) {
-//                    // At least one red child
-//                    if (sibling.left != null && sibling.left.isRed) {
-//                        if (isLeftChild(sibling)) {
-//                            // left left
-//                            sibling.left.isRed = sibling.isRed;
-//                            sibling.isRed = parent.isRed;
-//                            rightRotate(parent);
-//                        } else {
-//                            // right left
-//                            sibling.left.isRed = parent.isRed;
-//                            rightRotate(sibling);
-//                            leftRotate(parent);
-//                        }
-//                    } else {
-//                        if (isLeftChild(sibling)) {
-//                            // left right
-//                            sibling.right.isRed = parent.isRed;
-//                            leftRotate(sibling);
-//                            rightRotate(parent);
-//                        } else {
-//                            // right right
-//                            sibling.right.isRed = sibling.isRed;
-//                            sibling.isRed = parent.isRed;
-//                            leftRotate(parent);
-//                        }
-//                    }
-//                    parent.isRed = false;
-//                } else {
-//                    // 2 black children
-//                    sibling.isRed = true;
-//                    if (!parent.isRed) {
-//                        fixDoubleBlack(parent);
-//                    } else {
-//                        parent.isRed = false;
-//                    }
-//                }
-//            }
-//        }
-//        return node;
-//    }
     private boolean isBlack(RedBlackTreeNode node) {
         return node == null || node.color == Color.BLACK;
     }
@@ -507,7 +297,7 @@ public class RedBlackTree {
     private boolean hasRedChild(RedBlackTreeNode node) {
         return (node.left != null && node.left.color == Color.RED) || (node.right != null && node.right.color == Color.RED);
     }
-    private void fixDoubleBlack(RedBlackTreeNode node) {
+    private void handleDoubleBlackConflict(RedBlackTreeNode node) {
         if (node == root) {
             // Reached root node
             return;
@@ -518,7 +308,7 @@ public class RedBlackTree {
 
         if (sibling == null) {
             // Sibling is null, double black pushed up to parent
-            fixDoubleBlack(parent);
+            handleDoubleBlackConflict(parent);
         } else {
             if (isBlack(sibling)) {
                 if (hasRedChild(sibling)) {
@@ -549,7 +339,7 @@ public class RedBlackTree {
                     if (isRed(parent)) {
                         parent.color = Color.BLACK;
                     } else {
-                        fixDoubleBlack(parent);
+                        handleDoubleBlackConflict(parent);
                     }
                 }
             } else {
@@ -563,7 +353,7 @@ public class RedBlackTree {
                     rotateRight(parent);
                     sibling = parent.left;
                 }
-                fixDoubleBlack(node);
+                handleDoubleBlackConflict(node);
             }
         }
     }

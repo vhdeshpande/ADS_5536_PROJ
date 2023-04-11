@@ -4,12 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6592f9eb-c08c-4d36-a801-5a97a47ac842" name="Changes" comment="Update, print, cancel implementation">
+    <list default="true" id="6592f9eb-c08c-4d36-a801-5a97a47ac842" name="Changes" comment="Fix delete red black tree and min heap">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Color.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Color.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/InputFileReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GatorTaxiRideInputReader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MinHeap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MinHeap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MinHeapNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MinHeapNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Operation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Operation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OperationCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/OperationCode.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/RedBlackTree.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RedBlackTree.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/RedBlackTreeNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RedBlackTreeNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ResultWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GatorTaxiRideOutputWriter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gatorTaxi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gatorTaxi.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -80,7 +83,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1680845847964</updated>
-      <workItem from="1680845849588" duration="86346000" />
+      <workItem from="1680845849588" duration="93189000" />
     </task>
     <task id="LOCAL-00001" summary="Changing Input File Reader Class Name">
       <created>1680849994509</created>
@@ -110,7 +113,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681102218900</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Fix delete red black tree and min heap">
+      <created>1681166324429</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1681166324429</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -121,7 +131,8 @@
     <MESSAGE value="Red Black Tree Clas" />
     <MESSAGE value="Insert implementation" />
     <MESSAGE value="Update, print, cancel implementation" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update, print, cancel implementation" />
+    <MESSAGE value="Fix delete red black tree and min heap" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix delete red black tree and min heap" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -130,16 +141,6 @@
           <properties class="java.io.FileNotFoundException" package="java.io" />
           <option name="timeStamp" value="6" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/RedBlackTree.java</url>
-          <line>348</line>
-          <option name="timeStamp" value="95" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/gatorTaxi.java</url>
-          <line>73</line>
-          <option name="timeStamp" value="98" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

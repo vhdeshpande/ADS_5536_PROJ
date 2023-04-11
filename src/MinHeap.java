@@ -15,7 +15,7 @@ public class MinHeap {
         }
         MinHeapNode newNode = new MinHeapNode(gatorTaxiRide, size);
         minHeap[size] = newNode;
-        siftUp(size);
+        heapifyUp(size);
         size++;
         return newNode;
     }
@@ -55,7 +55,7 @@ public class MinHeap {
         this.minHeap[0].setIndex(0);
         this.minHeap[size-1] = null;
         this.size--;
-        siftDown(0);
+        heapifyDown(0);
         return minNode;
     }
 
@@ -84,14 +84,14 @@ public class MinHeap {
         // Perform a sift-up or sift-down operation to restore the heap property
         if(this.minHeap[index] != null){
             if (index == 0 || compare(this.minHeap[index], this.minHeap[getParentIndex(index)]) >= 0) {
-                siftDown(index);
+                heapifyDown(index);
             } else {
-                siftUp(index);
+                heapifyUp(index);
             }
         }
     }
 
-    private void siftDown(int index) {
+    private void heapifyDown(int index) {
         int left = index * 2 + 1;
         int right = index * 2 + 2;
         int smallest = index;
@@ -107,14 +107,14 @@ public class MinHeap {
         // If the current node is not the smallest, swap it with the smallest and sift down again
         if (smallest != index) {
             swap(index, smallest);
-            siftDown(smallest);
+            heapifyDown(smallest);
         }
     }
 
     // Sift up a node at the given index until its parent is smaller than it
-    private void siftUp(int index) {
-        if (index == 0)
-        {
+    private void heapifyUp(int index) {
+//      Stop heapify if node reaches the root, index is 0
+        if (index == 0) {
             return; // Root node, stop recursion
         }
 
@@ -123,12 +123,8 @@ public class MinHeap {
         // If the parent is greater than the current node, swap them and sift up again
         if (compare(minHeap[index], minHeap[parent]) < 0) {
             swap(index, parent);
-            siftUp(parent);
+            heapifyUp(parent);
         }
-    }
-
-    private MinHeapNode parent(int index) {
-        return minHeap[getParentIndex(index)];
     }
 
     private int getParentIndex(int index) {

@@ -1,25 +1,29 @@
 public class Operation {
+
     private OperationCode operationCode;
-    private Integer val1;
-    private Integer val2;
-    private Integer val3;
 
-    public Operation(OperationCode operationCode, Integer val1, Integer val2) {
+    private Integer input1;
+
+    private Integer input2;
+
+    private Integer input3;
+
+    public Operation(OperationCode operationCode, Integer input1, Integer input2) {
         this.operationCode = operationCode;
-        this.val1 = val1;
-        this.val2 = val2;
+        this.input1 = input1;
+        this.input2 = input2;
     }
 
-    public Operation(OperationCode operationCode, Integer val1, Integer val2, Integer val3) {
+    public Operation(OperationCode operationCode, Integer input1, Integer input2, Integer input3) {
         this.operationCode = operationCode;
-        this.val1 = val1;
-        this.val2 = val2;
-        this.val3 = val3;
+        this.input1 = input1;
+        this.input2 = input2;
+        this.input3 = input3;
     }
 
-    public Operation(OperationCode operationCode, Integer val1) {
+    public Operation(OperationCode operationCode, Integer input1) {
         this.operationCode = operationCode;
-        this.val1 = val1;
+        this.input1 = input1;
     }
 
     public Operation(OperationCode operationCode) {
@@ -30,30 +34,30 @@ public class Operation {
         return this.operationCode;
     }
 
-    public Integer getVal1() {
-        return this.val1;
+    public Integer getInput1() {
+        return this.input1;
     }
 
-    public Integer getVal2() {
-        return this.val2;
+    public Integer getInput2() {
+        return this.input2;
     }
 
-    public Integer getVal3() {
-        return val3;
+    public Integer getInput3() {
+        return input3;
     }
 
     public String toString() {
-        String str = operationCode.toString();
-        if (val1 != null) {
-            str = str + " " + val1;
+        String outputStr = operationCode.toString();
+        if (input1 != null) {
+            outputStr = outputStr + " " + input1;
         }
-        if (val2 != null) {
-            str = str + " " + val2;
+        if (input2 != null) {
+            outputStr = outputStr + " " + input2;
         }
-        if (val3 != null){
-            str = str + " "+ val3;
+        if (input3 != null){
+            outputStr = outputStr + " "+ input3;
         }
 
-        return str;
+        return outputStr;
     }
 }

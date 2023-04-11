@@ -3,32 +3,36 @@ import java.util.List;
 
 public class gatorTaxi {
 
-    public static final String NULL_STRING = "NULL";
+    RedBlackTree redBlackTree = new RedBlackTree();
 
-    RedBlackTree redBlackTree = new RedBlackTree();;
     MinHeap minHeap = new MinHeap(100);
-    List<Operation> operations; //List to store operations read from file
-    ResultWriter resultWriter; //Output file writer
-    InputFileReader fileReader;//input file reader
+
+    //Operations list read from the input file
+    List<Operation> operations;
+
+    //Output file writer
+    GatorTaxiRideOutputWriter gatorTaxiRideOutputWriter;
+
+    //input file reader
+    GatorTaxiRideInputReader fileReader;
 
     public gatorTaxi() {
         this.operations = new ArrayList<>();
-        this.resultWriter = new ResultWriter();
-        this.fileReader = new InputFileReader();
+        this.gatorTaxiRideOutputWriter = new GatorTaxiRideOutputWriter();
+        this.fileReader = new GatorTaxiRideInputReader();
     }
 
     private void writeResult(String text) {
         try {
-            this.resultWriter.writeToFile(text);
+            this.gatorTaxiRideOutputWriter.writeToFile(text);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    //wrapper to close the file
     private void closeWriter() {
         try {
-            this.resultWriter.close();
+            this.gatorTaxiRideOutputWriter.closeWriter();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -38,34 +42,43 @@ public class gatorTaxi {
         this.operations = fileReader.getOperationsFromFile(fileName);
     }
 
-    private void performOperations() {
+    private void performOperations() throws Exception {
+        outerLoop:
         for(Operation operation: operations) {
 //            this.writeResult(operation.toString());
             System.out.println("\n\n"+operation.toString());
             switch (operation.getOperationCode()) {
+
                 case Print:
-                    if (operation.getVal2() == null) {
-                        this.print(operation.getVal1());
+                    if (operation.getInput2() == null) {
+                        this.print(operation.getInput1());
                     } else {
-                        this.print(operation.getVal1(), operation.getVal2());
+                        this.print(operation.getInput1(), operation.getInput2());
                     }
                     break;
+
                 case GetNextRide:
                     this.getNextRide();
                     break;
+
                 case Insert:
-                    this.insert(operation.getVal1(), operation.getVal2(), operation.getVal3());
-                    break;
-                case CancelRide:
-                    this.cancelRide(operation.getVal1());
-                    break;
-                case UpdateTrip:
-                    this.updateTrip(operation.getVal1(), operation.getVal2());
+                    GatorTaxiRide gtRide = this.insert(operation.getInput1(), operation.getInput2(), operation.getInput3());
+                    if(gtRide == null){
+                        this.writeResult("Duplicate RideNumber");
+                        System.out.println("Duplicate RideNumber");
+                        break outerLoop;
+                    }
                     break;
 
+                case CancelRide:
+                    this.cancelRide(operation.getInput1());
+                    break;
+
+                case UpdateTrip:
+                    this.updateTrip(operation.getInput1(), operation.getInput2());
+                    break;
             }
         }
-//            this.writeResult(op.toString());
         closeWriter();
     }
 
@@ -171,12 +184,6 @@ public class gatorTaxi {
             this.redBlackTree.deleteNode(nodeToDelete);
         }
 
-//        RedBlackTreeNode nodeToDelete = this.redBlackTree.cancelRide(rideNumber);
-//        if(nodeToDelete != null){
-//            MinHeapNode minHeapNodeToDelete = nodeToDelete.getPtrToMinHeapNode();
-//            this.minHeap.deleteNode(minHeapNodeToDelete);
-//        }
-
         System.out.println("\n---RBT---");
         this.redBlackTree.inorderTraversal();
 
@@ -184,16 +191,14 @@ public class gatorTaxi {
         this.minHeap.print();
     }
 
-    private void insert(int rideNumber, int rideCost, int tripDuration) {
+    private GatorTaxiRide insert(int rideNumber, int rideCost, int tripDuration) {
         System.out.println("\n---Insert---");
         GatorTaxiRide gatorTaxiRide = new GatorTaxiRide(rideNumber, rideCost, tripDuration);
 
         RedBlackTreeNode rbTreeNewNode = this.redBlackTree.insert(gatorTaxiRide);
         if(rbTreeNewNode == null)
         {
-            this.writeResult("Duplicate RideNumber");
-            System.out.println("Duplicate RideNumber");
-            return;
+            return null;
         }
 
         MinHeapNode minHeapNewNode = this.minHeap.insert(gatorTaxiRide);
@@ -205,12 +210,12 @@ public class gatorTaxi {
 
         System.out.println("\n---MH---");
         minHeap.print();
+        return gatorTaxiRide;
     }
 
     public String getGatorTaxiRideString(GatorTaxiRide gatorTaxiRide){
         return "(" + gatorTaxiRide.getRideNumber() + "," + gatorTaxiRide.getRideCost() + "," + gatorTaxiRide.getTripDuration() + ")";
     }
-
 
     private void execute(String inputFile) throws Exception {
         this.readOperations(inputFile);
@@ -221,15 +226,6 @@ public class gatorTaxi {
         gatorTaxi gt = new gatorTaxi();
         String inputFilePath = args[0];
         try {
-//            RedBlackTree t = new RedBlackTree();
-//            int[] arr = {1,4,6,3,5,7,8,2,9};
-//            for(int i=0;i<9;i++)
-//            {
-//                t.insert(arr[i]);
-//                System.out.println();
-//                t.inorderTraversal();
-//            }
-//            t.printTree();
             gt.execute(inputFilePath);
         }catch(Exception e){
             e.printStackTrace();

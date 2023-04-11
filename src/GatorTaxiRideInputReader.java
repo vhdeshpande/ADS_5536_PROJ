@@ -6,9 +6,9 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class InputFileReader {
+public class GatorTaxiRideInputReader {
 
-    //Read the operations from input file and store them in the list to process them later
+//    Read the operations from input file
     public List<Operation> getOperationsFromFile(String filename) throws FileNotFoundException {
         List<Operation> operations = new ArrayList<>();
         File file = new File(filename);
@@ -24,9 +24,7 @@ public class InputFileReader {
     }
 
 
-    /*Reads a line and makes a java object for the action and its associated details
-    i.e initialize/insert/delete/search
-    */
+//    Reads a line and creates a Java object for the action and its input values.
     private Operation readRecordFromLine(String line) {
         Operation operation = null;
         Pattern pattern = Pattern.compile("^([A-Za-z]+)\\(([\\-0-9,]*)\\)$");
@@ -34,43 +32,44 @@ public class InputFileReader {
         if (matcher.find()) {
             String tempOp = matcher.group(1);
             String data = matcher.group(2);
-            Integer val1 = null;
-            Integer val2 = null;
-            String temp[] = null;
+            Integer input1 = null;
+            Integer input2 = null;
+            String values[] = null;
             switch (OperationCode.valueOf(tempOp)) {
 
+                case Print:
+                    values = data.split(",");
+                    input1 = Integer.parseInt(values[0]);
+                    input2 = null;
+                    if (values.length > 1) {
+                        input2 = Integer.parseInt(values[1]);
+                    }
+                    operation = new Operation(OperationCode.Print, input1, input2);
+                    break;
+
                 case Insert:
-                    temp = data.split(",");
-                    val1 = Integer.parseInt(temp[0]);
-                    val2 = Integer.parseInt(temp[1]);
-                    Integer  val3= Integer.parseInt(temp[2]);
-                    operation = new Operation(OperationCode.Insert, val1, val2, val3);
+                    values = data.split(",");
+                    input1 = Integer.parseInt(values[0]);
+                    input2 = Integer.parseInt(values[1]);
+                    Integer  input3 = Integer.parseInt(values[2]);
+                    operation = new Operation(OperationCode.Insert, input1, input2, input3);
                     break;
 
                 case GetNextRide:
                     operation = new Operation(OperationCode.GetNextRide);
                     break;
 
-                case UpdateTrip:
-                    temp = data.split(",");
-                    val1 = Integer.parseInt(temp[0]);
-                    val2 = Integer.parseInt(temp[1]);
-                    operation = new Operation(OperationCode.UpdateTrip, val1, val2);
-                    break;
-
                 case CancelRide:
                     operation = new Operation(OperationCode.CancelRide, Integer.parseInt(data));
                     break;
 
-                case Print:
-                    temp = data.split(",");
-                    val1 = Integer.parseInt(temp[0]);
-                    val2 = null;
-                    if (temp.length > 1) {
-                        val2 = Integer.parseInt(temp[1]);
-                    }
-                    operation = new Operation(OperationCode.Print, val1, val2);
+                case UpdateTrip:
+                    values = data.split(",");
+                    input1 = Integer.parseInt(values[0]);
+                    input2 = Integer.parseInt(values[1]);
+                    operation = new Operation(OperationCode.UpdateTrip, input1, input2);
                     break;
+
                 default:
                     break;
             }
