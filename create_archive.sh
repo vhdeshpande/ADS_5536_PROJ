@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-DIR_NAME="Archive/Deshpande_Vaibhavi"
+DIR_NAME="Deshpande_VaibhaviHemant"
 SOURCE_DIR_NAME="./src"
 REPORT_FILE="Report.pdf"
 

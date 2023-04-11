@@ -246,7 +246,7 @@ public class gatorTaxi {
      */
     private void cancelRide(Integer rideNumber) {
         RedBlackTreeNode nodeToDelete = this.redBlackTree.search(rideNumber);
-        if(nodeToDelete.getValue().getRideNumber() == rideNumber){
+        if(nodeToDelete != null  && nodeToDelete.getValue().getRideNumber() == rideNumber){
             MinHeapNode minHeapNodeToDelete = nodeToDelete.getPtrToMinHeapNode();
             this.minHeap.deleteNode(minHeapNodeToDelete);
             this.redBlackTree.deleteNode(nodeToDelete);
