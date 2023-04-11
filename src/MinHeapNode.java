@@ -8,18 +8,18 @@ public class MinHeapNode {
     }
 
     private Ride value;
-    private int index;
+    private Integer index;
 
     /**
      * Reference to the corresponding node in the red-black tree
      */
     private RedBlackTreeNode ptrToRBTreeNode;
 
-    public int getIndex() {
+    public Integer getIndex() {
         return index;
     }
 
-    public void setIndex(int index) {
+    public void setIndex(Integer index) {
         this.index = index;
     }
 
@@ -31,12 +31,12 @@ public class MinHeapNode {
         this.ptrToRBTreeNode = ptrToRBTreeNode;
     }
 
-    public MinHeapNode(Ride value, int index) {
+    public MinHeapNode(Ride value, Integer index) {
         this.value = value;
         this.index = index;
     }
 
-    public MinHeapNode(Ride value, int index, RedBlackTreeNode ptrToRBTreeNode) {
+    public MinHeapNode(Ride value, Integer index, RedBlackTreeNode ptrToRBTreeNode) {
         this.value = value;
         this.index = index;
         this.ptrToRBTreeNode = ptrToRBTreeNode;

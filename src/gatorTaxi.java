@@ -222,7 +222,7 @@ public class gatorTaxi {
             return NO_RIDE_FOUND;
         }
         String res = "";
-        int count = result.size()-1;
+        Integer count = result.size()-1;
         for (RedBlackTreeNode node : result){
             if (node != null)
             {

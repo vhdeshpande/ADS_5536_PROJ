@@ -1,36 +1,36 @@
 
 public class Ride {
-    private int rideNumber;
-    private int rideCost;
-    private int tripDuration;
+    private Integer rideNumber;
+    private Integer rideCost;
+    private Integer tripDuration;
 
-    public Ride(int rideNumber, int rideCost, int tripDuration) {
+    public Ride(Integer rideNumber, Integer rideCost, Integer tripDuration) {
         this.rideNumber = rideNumber;
         this.rideCost = rideCost;
         this.tripDuration = tripDuration;
     }
 
-    public int getRideNumber() {
+    public Integer getRideNumber() {
         return rideNumber;
     }
 
-    public void setRideNumber(int rideNumber) {
+    public void setRideNumber(Integer rideNumber) {
         this.rideNumber = rideNumber;
     }
 
-    public int getRideCost() {
+    public Integer getRideCost() {
         return rideCost;
     }
 
-    public void setRideCost(int rideCost) {
+    public void setRideCost(Integer rideCost) {
         this.rideCost = rideCost;
     }
 
-    public int getTripDuration() {
+    public Integer getTripDuration() {
         return tripDuration;
     }
 
-    public void setTripDuration(int tripDuration) {
+    public void setTripDuration(Integer tripDuration) {
         this.tripDuration = tripDuration;
     }
 
