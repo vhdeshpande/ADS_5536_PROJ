@@ -30,6 +30,6 @@ echo "Creating Archive $DIR_NAME.zip ..."
 zip -qr "${DIR_NAME}.zip" ${DIR_NAME}
 
 echo "Removing the directory ${DIR_NAME}"
-rm -rf ${DIR_NAME}
+#rm -rf ${DIR_NAME}
 
 echo "Done"

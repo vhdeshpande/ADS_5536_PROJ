@@ -68,14 +68,6 @@ public class RedBlackTreeNode {
         this.color = Color.RED;
     }
 
-    public RedBlackTreeNode(GatorTaxiRide value, MinHeapNode ptrToMinHeapNode) {
-        this.value = value;
-        this.parent = null;
-        this.left = null;
-        this.right = null;
-        this.ptrToMinHeapNode = ptrToMinHeapNode;
-    }
-
     public RedBlackTreeNode sibling() {
         // sibling null if no parent
         if (parent == null)
@@ -90,9 +82,5 @@ public class RedBlackTreeNode {
     public Boolean isOnLeft()
     {
         return this == parent.left;
-    }
-    public Boolean hasRedChild() {
-        return (left != null && left.color == Color.RED) ||
-                (right != null && right.color == Color.RED);
     }
 }

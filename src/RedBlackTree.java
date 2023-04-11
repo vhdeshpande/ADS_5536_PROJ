@@ -2,8 +2,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RedBlackTree {
+    /**
+     * Red-black tree root node
+     */
     private RedBlackTreeNode root;
 
+    /**
+     * To check if the ride number being inserted is duplicate
+     */
     private Boolean isDuplicateKey = false;
 
     public RedBlackTree(){
@@ -11,7 +17,10 @@ public class RedBlackTree {
         root = null;
     }
 
-//    Left rotation
+    /**
+     * Rotate left to fix imbalance
+     * @param node node to rotate
+     */
     private void rotateLeft(RedBlackTreeNode node)
     {
         RedBlackTreeNode rightChild = node.getRight();
@@ -30,7 +39,11 @@ public class RedBlackTree {
         rightChild.setLeft(node);
         node.setParent(rightChild);
     }
-//    right rotation
+
+    /**
+     * Rotate right to fix imbalance
+     * @param node node to rotate
+     */
     public void rotateRight(RedBlackTreeNode node)
     {
         RedBlackTreeNode leftChild = node.getLeft();
@@ -50,7 +63,11 @@ public class RedBlackTree {
         node.setParent(leftChild);
     }
 
-
+    /**
+     * Insert node in the red-black tree
+     * @param data - gator taxi ride data
+     * @return newNode - inserted node
+     */
     public RedBlackTreeNode insert(GatorTaxiRide data) {
         isDuplicateKey = false;
         RedBlackTreeNode newNode = new RedBlackTreeNode(data);
@@ -73,6 +90,10 @@ public class RedBlackTree {
 
     }
 
+    /**
+     * Handle red-red conflict
+     * @param node node to rotate
+     */
     private void handleRRConflict(RedBlackTreeNode node) {
         while (node.getParent() != null && node.getParent().getColor() == Color.RED)
         {
@@ -122,6 +143,12 @@ public class RedBlackTree {
         }
     }
 
+    /**
+     * Helper function for inserting a node in the red-black tree
+     * @param root - current root node of the subtree
+     * @param newNode - node to insert in the red-black tree
+     * @return node - current subtree root node
+     */
     private RedBlackTreeNode redBlackTreeInsertHelper(RedBlackTreeNode root, RedBlackTreeNode newNode) {
         if(root == null)
         {
@@ -165,38 +192,20 @@ public class RedBlackTree {
         inorderTraversalHelper(this.root);
     }
 
-    private void printTreeHelper(RedBlackTreeNode root, int space)
-    {
-        int i;
-        if(root != null)
-        {
-            space = space + 10;
-            printTreeHelper(root.getRight(), space);
-            System.out.printf("\n");
-            for ( i = 10; i < space; i++)
-            {
-                System.out.printf(" ");
-            }
-            System.out.printf("%d", root.getValue());
-            System.out.printf("\n");
-            printTreeHelper(root.getLeft(), space);
-        }
-    }
-    // function to print the tree.
-    public void printTree()
-    {
-        printTreeHelper(this.root, 0);
-    }
-
-    public RedBlackTreeNode search(int n) {
+    /**
+     * Search in the red-black tree based on ride number
+     * @param rideNumber - ride number for the node to search
+     * @return node - the red-black tree node if found otherwise returns null
+     */
+    public RedBlackTreeNode search(int rideNumber) {
         RedBlackTreeNode curr = this.root;
         while (curr != null) {
-            if (n < curr.getValue().getRideNumber()) {
+            if (rideNumber < curr.getValue().getRideNumber()) {
                 if (curr.getLeft() == null)
                     break;
                 else
                     curr = curr.getLeft();
-            } else if (n == curr.getValue().getRideNumber()) {
+            } else if (rideNumber == curr.getValue().getRideNumber()) {
                 break;
             } else {
                 if (curr.getRight() == null)
@@ -209,8 +218,15 @@ public class RedBlackTree {
         return curr;
     }
 
+    /**
+     * Function to delete the input node in red-black tree
+     * @param node - node to delete
+     */
     public void deleteNode(RedBlackTreeNode node){
             // case 1: node is a leaf
+            /**
+             * If the node to delete is a leaf node
+             */
             if (node.getLeft() == null && node.getRight() == null) {
                 if (node == root) {
                     root = null;
@@ -228,7 +244,10 @@ public class RedBlackTree {
                 return;
             }
 
-            // case 2: node has only one child
+
+            /**
+             * If the node to delete has one child node
+             */
             if (node.getLeft() == null || node.getRight() == null) {
                 RedBlackTreeNode child = node.getLeft() == null ? node.getRight() : node.getLeft();
                 if (node == root) {
@@ -255,7 +274,9 @@ public class RedBlackTree {
                 return;
             }
 
-            // case 3: node has two children
+            /**
+             * If the node to delete has two child node
+             */
             RedBlackTreeNode successor = getInorderSuccessor(node);
             node.setValue(successor.getValue());
             MinHeapNode newNode = successor.getPtrToMinHeapNode();
@@ -263,6 +284,12 @@ public class RedBlackTree {
             node.setPtrToMinHeapNode(newNode);
             deleteNode(successor);
     }
+
+    /**
+     * Get the inorder successor of the input node
+     * @param node - red-black tree node
+     * @return successor - returns the inorder successor for the node
+     */
     private RedBlackTreeNode getInorderSuccessor(RedBlackTreeNode node) {
         RedBlackTreeNode successor = node.getRight();
         while (successor.getLeft() != null) {
@@ -271,40 +298,55 @@ public class RedBlackTree {
         return successor;
     }
 
-    private RedBlackTreeNode minValueNode(RedBlackTreeNode node) {
-        RedBlackTreeNode current = node;
-        /* loop down to find the leftmost leaf */
-        while (current.getLeft() != null) {
-            current = current.getLeft();
-        }
-        return current;
-    }
-
+    /**
+     * Returns true if the node is colored black
+     * @param node - node
+     * @return Boolean - returns true if the node is black
+     */
     private boolean isBlack(RedBlackTreeNode node) {
         return node == null || node.getColor() == Color.BLACK;
     }
 
+    /**
+     * Returns true if the node is colored red
+     * @param node - node
+     * @return Boolean - returns true if the node is red
+     */
     private boolean isRed(RedBlackTreeNode node) {
         return node != null && node.getColor() == Color.RED;
     }
 
+    /**
+     * Checks if the input node is the right child of its parent node
+     * @param node - red-black tree node
+     * @return Boolean - returns true if the node is the right child of its parent node
+     */
     private boolean isRightChild(RedBlackTreeNode node) {
         return node == node.getParent().getRight();
     }
     private boolean hasRedChild(RedBlackTreeNode node) {
         return (node.getLeft() != null && node.getLeft().getColor() == Color.RED) || (node.getRight() != null && node.getRight().getColor() == Color.RED);
     }
+
+    /**
+     * Handles the double black conflict when a node is deleted from the red-black tree
+     * @param node - node to be deleted
+     */
     private void handleDoubleBlackConflict(RedBlackTreeNode node) {
-        if (node == root) {
-            // Reached root node
+        /**
+         * Check if node is the root node
+         */
+        if (node == this.root) {
             return;
         }
 
         RedBlackTreeNode sibling = node.sibling();
         RedBlackTreeNode parent = node.getParent();
 
+        /**
+         * If the sibling of the node is null, double black is shifted to its parent
+         */
         if (sibling == null) {
-            // Sibling is null, double black pushed up to parent
             handleDoubleBlackConflict(parent);
         } else {
             if (isBlack(sibling)) {
@@ -361,21 +403,18 @@ public class RedBlackTree {
         return result;
     }
 
-    private void rangeSearch(RedBlackTreeNode node, int a, int b, List<RedBlackTreeNode> result) {
+    private void rangeSearch(RedBlackTreeNode node, int range1, int range2, List<RedBlackTreeNode> result) {
         if (node == null) {
             return;
         }
-
-        if (node.getValue().getRideNumber() > a) {
-            rangeSearch(node.getLeft(), a, b, result);
+        if (node.getValue().getRideNumber() > range1) {
+            rangeSearch(node.getLeft(), range1, range2, result);
         }
-
-        if (node.getValue().getRideNumber() >= a && node.getValue().getRideNumber() <= b) {
+        if (node.getValue().getRideNumber() >= range1 && node.getValue().getRideNumber() <= range2) {
             result.add(node);
         }
-
-        if (node.getValue().getRideNumber() < b) {
-            rangeSearch(node.getRight(), a, b, result);
+        if (node.getValue().getRideNumber() < range2) {
+            rangeSearch(node.getRight(), range1, range2, result);
         }
     }
 
