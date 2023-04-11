@@ -33,4 +33,8 @@ public class GatorTaxiRide {
         this.tripDuration = tripDuration;
     }
 
+    @Override
+    public String toString() {
+        return "(" + this.rideNumber + "," + this.rideCost + "," + this.tripDuration + ")";
+    }
 }

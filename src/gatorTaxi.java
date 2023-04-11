@@ -1,50 +1,79 @@
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Gator taxi ride main class
+ */
 public class gatorTaxi {
 
-//    Red black tree
+    /**
+     * Initialize red-black tree
+     */
     private RedBlackTree redBlackTree = new RedBlackTree();
 
-//    Min Heap
-    private MinHeap minHeap = new MinHeap(100);
+    /**
+     * Initialize min heap with maximum capacity 200
+     */
+    private MinHeap minHeap = new MinHeap(2000);
 
-//    Operations list read from the input file
+    /**
+     * List of operations from the input file
+     */
     private List<Operation> operations;
 
-//    Output file writer
-    private GatorTaxiRideOutputWriter gatorTaxiRideOutputWriter;
+    /**
+     * Output file writer for gator taxi ride
+     */
+    private GatorTaxiOutputWriter gatorTaxiOutputWriter;
 
-//    input file reader
-    private GatorTaxiRideInputReader gatorTaxiRideInputReader;
+    /**
+     * Input file reader for gator taxi ride
+     */
+    private GatorTaxiInputReader gatorTaxiInputReader;
 
     public gatorTaxi() {
         this.operations = new ArrayList<>();
-        this.gatorTaxiRideOutputWriter = new GatorTaxiRideOutputWriter();
-        this.gatorTaxiRideInputReader = new GatorTaxiRideInputReader();
+        this.gatorTaxiOutputWriter = new GatorTaxiOutputWriter();
+        this.gatorTaxiInputReader = new GatorTaxiInputReader();
     }
 
-    private void writeResult(String outputStr) {
+    /**
+     * Writes result to the output file
+     * @param output - output string to write
+     */
+    private void writeResult(String output) {
         try {
-            this.gatorTaxiRideOutputWriter.writeOutputToFile(outputStr);
+            this.gatorTaxiOutputWriter.writeOutputToFile(output);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Closes the output writer
+     */
     private void closeWriter() {
         try {
-            this.gatorTaxiRideOutputWriter.closeWriter();
+            this.gatorTaxiOutputWriter.closeOutputWriter();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void readOperations(String fileName) throws Exception{
-        this.operations = gatorTaxiRideInputReader.getOperationsFromFile(fileName);
+    /**
+     * Read input from the file
+     * @param inputFileName - input file name
+     * @throws Exception
+     */
+    private void readOperations(String inputFileName) throws Exception{
+        this.operations = gatorTaxiInputReader.getOperationListFromInputFile(inputFileName);
     }
 
-    private void performOperations() throws Exception {
+    /**
+     * Execute operations based on the list of operations read from the input file
+     * @throws Exception
+     */
+    private void executeOperations() throws Exception {
         outerLoop:
         for(Operation operation: operations) {
 //            this.writeResult(operation.toString());
@@ -84,16 +113,28 @@ public class gatorTaxi {
         closeWriter();
     }
 
+    /**
+     * Update the ride with updated trip duration in red-black tree and min heap
+     * @param rideNumber - ride number
+     * @param newTripDuration - new trip duration
+     */
     private void updateTrip(Integer rideNumber, Integer newTripDuration) {
         System.out.println("\n---Update Trip---");
         RedBlackTreeNode node = this.redBlackTree.search(rideNumber);
         if(node != null && node.getValue().getRideNumber() == rideNumber){
             Integer oldTripDuration = node.getValue().getTripDuration();
             Integer oldRideCost = node.getValue().getRideCost();
+            /**
+             * If the new trip duration is less than old duration, update the duration
+             */
             if(newTripDuration <= oldTripDuration)
             {
                 node.getValue().setTripDuration(newTripDuration);
             }
+            /**
+             * If the new trip duration is within the range of old trip duration and twice the old duration,
+             * delete the node and insert a new node with new trip duration and ride cost + 10
+             */
             else if(oldTripDuration < newTripDuration && (2 * oldTripDuration) >= newTripDuration)
             {
                 MinHeapNode minHeapNodeToDelete = node.getPtrToMinHeapNode();
@@ -101,9 +142,11 @@ public class gatorTaxi {
                 this.redBlackTree.deleteNode(node);
                 insert(rideNumber, oldRideCost + 10, newTripDuration);
             }
+            /**
+             * If the new trip duration exceeds twice old duration, delete the node from min hep and red-black tree
+             */
             else if(newTripDuration > (2 * oldTripDuration))
             {
-
                 MinHeapNode minHeapNodeToDelete = node.getPtrToMinHeapNode();
                 this.minHeap.deleteNode(minHeapNodeToDelete);
                 this.redBlackTree.deleteNode(node);
@@ -116,6 +159,11 @@ public class gatorTaxi {
         minHeap.print();
 
     }
+
+    /**
+     * Get the next ride based on the minimum ride cost, remove the minimum value node from the min heap
+     * and red-black tree
+     */
     private void getNextRide() {
         System.out.println("\n---Get Next Ride---");
         MinHeapNode node = this.minHeap.removeMin();
@@ -123,7 +171,7 @@ public class gatorTaxi {
         if (node != null){
             System.out.print("(" + node.getValue().getRideNumber() + ", " + node.getValue().getRideCost() + ", " + node.getValue().getTripDuration() + ") ");
             this.redBlackTree.deleteNode(node.getPtrToRBTreeNode());
-            this.writeResult(getGatorTaxiRideString(node.getValue()));
+            this.writeResult(node.getValue().toString());
         }
         else
         {
@@ -141,12 +189,12 @@ public class gatorTaxi {
         RedBlackTreeNode node = this.redBlackTree.search(rideNumber);
         if (node != null && node.getValue().getRideNumber() == rideNumber){
             System.out.print("(" + node.getValue().getRideNumber() + ", " + node.getValue().getRideCost() + ", " + node.getValue().getTripDuration() + ") ");
-            this.writeResult(getGatorTaxiRideString(node.getValue()));
+            this.writeResult(node.getValue().toString());
         }
         else
         {
             System.out.print("(" + 0 + ", " + 0 + ", " + 0 + ") ");
-            this.writeResult(getGatorTaxiRideString(new GatorTaxiRide(0,0,0)));
+            this.writeResult(new GatorTaxiRide(0,0,0).toString());
         }
     }
 
@@ -162,7 +210,7 @@ public class gatorTaxi {
             if (node != null)
             {
                 System.out.print("(" + node.getValue().getRideNumber() + ", " + node.getValue().getRideCost() + ", " + node.getValue().getTripDuration() + ") ");
-                res = res + getGatorTaxiRideString(node.getValue());
+                res = res + node.getValue().toString();
             }
             if(count != 0)
             {
@@ -193,6 +241,13 @@ public class gatorTaxi {
         this.minHeap.print();
     }
 
+    /**
+     * Insert ride in min heap and red-black tree
+     * @param rideNumber - ride number
+     * @param rideCost - ride cost
+     * @param tripDuration - trip duration
+     * @return GatorTaxiRide object if the node was successfully inserted else return null
+     */
     private GatorTaxiRide insert(int rideNumber, int rideCost, int tripDuration) {
         System.out.println("\n---Insert---");
         GatorTaxiRide gatorTaxiRide = new GatorTaxiRide(rideNumber, rideCost, tripDuration);
@@ -215,20 +270,22 @@ public class gatorTaxi {
         return gatorTaxiRide;
     }
 
-    private String getGatorTaxiRideString(GatorTaxiRide gatorTaxiRide){
-        return "(" + gatorTaxiRide.getRideNumber() + "," + gatorTaxiRide.getRideCost() + "," + gatorTaxiRide.getTripDuration() + ")";
-    }
 
-    private void execute(String inputFile) throws Exception {
-        this.readOperations(inputFile);
-        this.performOperations();
+    /**
+     * Read and execute operations from the input file
+     * @param inputFileName - input file name
+     * @throws Exception
+     */
+    private void readAndExecuteOperations(String inputFileName) throws Exception {
+        this.readOperations(inputFileName);
+        this.executeOperations();
     }
 
     public static void main(String[] args) {
         gatorTaxi gt = new gatorTaxi();
         String inputFilePath = args[0];
         try {
-            gt.execute(inputFilePath);
+            gt.readAndExecuteOperations(inputFilePath);
         }catch(Exception e){
             e.printStackTrace();
         }
