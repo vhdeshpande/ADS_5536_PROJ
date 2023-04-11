@@ -1,7 +1,15 @@
 public class MinHeapNode {
-    public GatorTaxiRide value;
-    public int index;
-    public RedBlackTreeNode ptrToRBTreeNode;
+    public GatorTaxiRide getValue() {
+        return value;
+    }
+
+    public void setValue(GatorTaxiRide value) {
+        this.value = value;
+    }
+
+    private GatorTaxiRide value;
+    private int index;
+    private RedBlackTreeNode ptrToRBTreeNode;
     public int getIndex() {
         return index;
     }

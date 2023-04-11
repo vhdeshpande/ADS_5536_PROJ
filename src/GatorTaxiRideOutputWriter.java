@@ -16,7 +16,7 @@ class GatorTaxiRideOutputWriter {
         }
     }
 
-    public void initializeFile() throws Exception {
+    private void initializeFile() throws Exception {
         writer = new FileWriter(OUTPUT_FILE_NAME);
     }
 

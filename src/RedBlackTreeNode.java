@@ -1,11 +1,13 @@
 public class RedBlackTreeNode {
 
-    public GatorTaxiRide value;
-    public RedBlackTreeNode parent;
-    public RedBlackTreeNode left;
-    public RedBlackTreeNode right;
+    private GatorTaxiRide value;
+    private RedBlackTreeNode parent;
 
-    public Color color;
+    private RedBlackTreeNode left;
+
+    private RedBlackTreeNode right;
+
+    private Color color;
 
     public MinHeapNode getPtrToMinHeapNode() {
         return ptrToMinHeapNode;
@@ -15,7 +17,7 @@ public class RedBlackTreeNode {
         this.ptrToMinHeapNode = ptrToMinHeapNode;
     }
 
-    public MinHeapNode ptrToMinHeapNode;
+    private MinHeapNode ptrToMinHeapNode;
 
     public GatorTaxiRide getValue() {
         return value;
