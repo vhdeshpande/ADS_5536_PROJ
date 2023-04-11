@@ -82,6 +82,9 @@ public class gatorTaxi {
             System.out.println("\n\n"+operation.toString());
             switch (operation.getOperationCode()) {
 
+                /**
+                 * Execute print operation based on ride number
+                 */
                 case Print:
                     String ride = "";
                     if (operation.getInput2() == null) {
@@ -92,11 +95,17 @@ public class gatorTaxi {
                     this.writeResult(ride);
                     break;
 
+                /**
+                 * Execute get next ride operation
+                 */
                 case GetNextRide:
                     String nextRide = this.getNextRide();
                     this.writeResult(nextRide);
                     break;
 
+                /**
+                 * Execute insert operation - ride number, ride cost and trip duration
+                 */
                 case Insert:
                     GatorTaxiRide gtRide = this.insert(operation.getInput1(), operation.getInput2(), operation.getInput3());
                     if(gtRide == null){
@@ -105,10 +114,16 @@ public class gatorTaxi {
                     }
                     break;
 
+                /**
+                 * Execute cancel ride operation based on ride number
+                 */
                 case CancelRide:
                     this.cancelRide(operation.getInput1());
                     break;
 
+                /**
+                 * Execute update ride operation based on ride number and update the trip duration
+                 */
                 case UpdateTrip:
                     this.updateTrip(operation.getInput1(), operation.getInput2());
                     break;
@@ -208,7 +223,6 @@ public class gatorTaxi {
      * @return gator ride string if found
      */
     private String print(Integer rideNumber1, Integer rideNumber2) {
-        System.out.println("\n---Print Range Search---");
         List<RedBlackTreeNode> result = this.redBlackTree.rangeSearch(rideNumber1, rideNumber2);
 
         if(result.size() == 0){

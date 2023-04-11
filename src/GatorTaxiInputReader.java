@@ -45,6 +45,10 @@ public class GatorTaxiInputReader {
             String inputStr[] = null;
             switch (OperationCode.valueOf(op)) {
 
+                /**
+                 * input1 - ride number
+                 * input2 - ride number
+                 */
                 case Print:
                     inputStr = inputValues.split(",");
                     input1 = Integer.parseInt(inputStr[0]);
@@ -55,6 +59,11 @@ public class GatorTaxiInputReader {
                     operation = new Operation(OperationCode.Print, input1, input2);
                     break;
 
+                /**
+                 * input1 - ride number
+                 * input2 - ride cost
+                 * input3 - trip duration
+                 */
                 case Insert:
                     inputStr = inputValues.split(",");
                     input1 = Integer.parseInt(inputStr[0]);
@@ -71,6 +80,10 @@ public class GatorTaxiInputReader {
                     operation = new Operation(OperationCode.CancelRide, Integer.parseInt(inputValues));
                     break;
 
+                /**
+                 * input1 - ride number
+                 * input2 - new trip duration
+                 */
                 case UpdateTrip:
                     inputStr = inputValues.split(",");
                     input1 = Integer.parseInt(inputStr[0]);
