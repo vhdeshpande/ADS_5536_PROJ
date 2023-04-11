@@ -18,14 +18,14 @@ public class MinHeap {
 
     /**
      * Insert node in min heap
-     * @param gatorTaxiRide -gator taxi ride
+     * @param ride -gator taxi ride
      * @return new node
      */
-    public MinHeapNode insert(GatorTaxiRide gatorTaxiRide) {
+    public MinHeapNode insert(Ride ride) {
         if (isFull()) {
             return null;
         }
-        MinHeapNode newNode = new MinHeapNode(gatorTaxiRide, size);
+        MinHeapNode newNode = new MinHeapNode(ride, size);
         minHeap[size] = newNode;
         heapifyUp(size);
         size++;
@@ -81,15 +81,21 @@ public class MinHeap {
         this.minHeap[index2].setIndex(index2);
     }
 
-    public MinHeapNode removeMin() {
+    /**
+     * Get minimum gator ride node based on the ride cost and ride duration
+     * @return min heap node
+     */
+    public MinHeapNode getMinNode() {
         if (isEmpty()) {
             return null;
         }
+        //Remove the first node and replace it with the last node
         MinHeapNode minNode = new MinHeapNode(this.minHeap[0].getValue(), 0, this.minHeap[0].getPtrToRBTreeNode());
         this.minHeap[0] = this.minHeap[size-1];
         this.minHeap[0].setIndex(0);
         this.minHeap[size-1] = null;
         this.size--;
+        //Heapify down to maintain the min heap property
         heapifyDown(0);
         return minNode;
     }

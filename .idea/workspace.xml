@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6592f9eb-c08c-4d36-a801-5a97a47ac842" name="Changes" comment="Update Comments and red black tree node">
+    <list default="true" id="6592f9eb-c08c-4d36-a801-5a97a47ac842" name="Changes" comment="Update Comments">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GatorTaxiInputReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GatorTaxiInputReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MinHeap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MinHeap.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gatorTaxi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gatorTaxi.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -33,22 +33,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/vaibhavi/IdeaProjects/ADS_5536_PROJ/src&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.ide.settings.uml&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/Users/vaibhavi/IdeaProjects/ADS_5536_PROJ/src",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src" />
@@ -79,7 +79,7 @@
       <option name="presentableId" value="Default" />
       <updated>1680845847964</updated>
       <workItem from="1680845849588" duration="105258000" />
-      <workItem from="1681222108990" duration="6520000" />
+      <workItem from="1681222108990" duration="9294000" />
     </task>
     <task id="LOCAL-00001" summary="Changing Input File Reader Class Name">
       <created>1680849994509</created>
@@ -179,11 +179,29 @@
       <option name="project" value="LOCAL" />
       <updated>1681228866034</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Update Comments">
+      <created>1681229252747</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1681229252747</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Changing Input File Reader Class Name" />
@@ -195,9 +213,9 @@
     <MESSAGE value="Update gatorTaxi" />
     <MESSAGE value="Update RedBlackTreeNode" />
     <MESSAGE value="Update Comments and print in output file" />
-    <MESSAGE value="Update Comments" />
     <MESSAGE value="Update Comments and red black tree node" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update Comments and red black tree node" />
+    <MESSAGE value="Update Comments" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update Comments" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

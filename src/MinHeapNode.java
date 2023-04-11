@@ -1,13 +1,13 @@
 public class MinHeapNode {
-    public GatorTaxiRide getValue() {
+    public Ride getValue() {
         return value;
     }
 
-    public void setValue(GatorTaxiRide value) {
+    public void setValue(Ride value) {
         this.value = value;
     }
 
-    private GatorTaxiRide value;
+    private Ride value;
     private int index;
 
     /**
@@ -31,12 +31,12 @@ public class MinHeapNode {
         this.ptrToRBTreeNode = ptrToRBTreeNode;
     }
 
-    public MinHeapNode(GatorTaxiRide value, int index) {
+    public MinHeapNode(Ride value, int index) {
         this.value = value;
         this.index = index;
     }
 
-    public MinHeapNode(GatorTaxiRide value, int index, RedBlackTreeNode ptrToRBTreeNode) {
+    public MinHeapNode(Ride value, int index, RedBlackTreeNode ptrToRBTreeNode) {
         this.value = value;
         this.index = index;
         this.ptrToRBTreeNode = ptrToRBTreeNode;

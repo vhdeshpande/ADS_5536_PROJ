@@ -68,7 +68,7 @@ public class RedBlackTree {
      * @param data - gator taxi ride data
      * @return newNode - inserted node
      */
-    public RedBlackTreeNode insert(GatorTaxiRide data) {
+    public RedBlackTreeNode insert(Ride data) {
         isDuplicateKey = false;
         RedBlackTreeNode newNode = new RedBlackTreeNode(data);
         if(this.root == null)

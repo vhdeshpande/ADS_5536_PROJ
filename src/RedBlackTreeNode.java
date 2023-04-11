@@ -1,6 +1,6 @@
 public class RedBlackTreeNode {
 
-    private GatorTaxiRide value;
+    private Ride value;
 
     private RedBlackTreeNode parent;
 
@@ -23,11 +23,11 @@ public class RedBlackTreeNode {
         this.ptrToMinHeapNode = ptrToMinHeapNode;
     }
 
-    public GatorTaxiRide getValue() {
+    public Ride getValue() {
         return value;
     }
 
-    public void setValue(GatorTaxiRide value) {
+    public void setValue(Ride value) {
         this.value = value;
     }
 
@@ -67,7 +67,7 @@ public class RedBlackTreeNode {
      * Initialize red-black tree node
      * @param value
      */
-    RedBlackTreeNode(GatorTaxiRide value){
+    RedBlackTreeNode(Ride value){
         super();
         this.value = value;
         this.parent = null;

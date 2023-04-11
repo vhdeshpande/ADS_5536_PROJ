@@ -1,7 +1,7 @@
 /**
  * Enum for the operations to execute - Print, GetNextRide, Insert, CancelRide and UpdateTrip
  */
-public enum OperationCode {
+public enum GatorTaxiOperationCode {
 
     Print("Print"),
 
@@ -15,7 +15,7 @@ public enum OperationCode {
 
     private final String operation;
 
-    OperationCode(String operation){
+    GatorTaxiOperationCode(String operation){
         this.operation = operation;
     }
 

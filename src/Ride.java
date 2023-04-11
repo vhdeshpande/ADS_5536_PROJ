@@ -1,10 +1,10 @@
 
-public class GatorTaxiRide {
+public class Ride {
     private int rideNumber;
     private int rideCost;
     private int tripDuration;
 
-    public GatorTaxiRide(int rideNumber, int rideCost, int tripDuration) {
+    public Ride(int rideNumber, int rideCost, int tripDuration) {
         this.rideNumber = rideNumber;
         this.rideCost = rideCost;
         this.tripDuration = tripDuration;

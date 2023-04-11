@@ -19,7 +19,7 @@ public class gatorTaxi {
     /**
      * List of operations from the input file
      */
-    private List<Operation> operations;
+    private List<GatorTaxiOperation> gatorTaxiOperations;
 
     /**
      * Output file writer for gator taxi ride
@@ -34,7 +34,7 @@ public class gatorTaxi {
     private static final String NO_RIDE_FOUND = "(0,0,0)";
 
     public gatorTaxi() {
-        this.operations = new ArrayList<>();
+        this.gatorTaxiOperations = new ArrayList<>();
         this.gatorTaxiOutputWriter = new GatorTaxiOutputWriter();
         this.gatorTaxiInputReader = new GatorTaxiInputReader();
     }
@@ -68,7 +68,7 @@ public class gatorTaxi {
      * @throws Exception
      */
     private void readOperations(String inputFileName) throws Exception{
-        this.operations = gatorTaxiInputReader.getOperationListFromInputFile(inputFileName);
+        this.gatorTaxiOperations = gatorTaxiInputReader.getOperationListFromInputFile(inputFileName);
     }
 
     /**
@@ -77,20 +77,20 @@ public class gatorTaxi {
      */
     private void executeOperations() throws Exception {
         outerLoop:
-        for(Operation operation: operations) {
+        for(GatorTaxiOperation gatorTaxiOperation : gatorTaxiOperations) {
 //            this.writeResult(operation.toString());
-            System.out.println("\n\n"+operation.toString());
-            switch (operation.getOperationCode()) {
+            System.out.println("\n\n"+ gatorTaxiOperation.toString());
+            switch (gatorTaxiOperation.getOperationCode()) {
 
                 /**
                  * Execute print operation based on ride number
                  */
                 case Print:
                     String ride = "";
-                    if (operation.getInput2() == null) {
-                        ride = this.print(operation.getInput1());
+                    if (gatorTaxiOperation.getInput2() == null) {
+                        ride = this.print(gatorTaxiOperation.getInput1());
                     } else {
-                        ride = this.print(operation.getInput1(), operation.getInput2());
+                        ride = this.print(gatorTaxiOperation.getInput1(), gatorTaxiOperation.getInput2());
                     }
                     this.writeResult(ride);
                     break;
@@ -107,7 +107,7 @@ public class gatorTaxi {
                  * Execute insert operation - ride number, ride cost and trip duration
                  */
                 case Insert:
-                    GatorTaxiRide gtRide = this.insert(operation.getInput1(), operation.getInput2(), operation.getInput3());
+                    Ride gtRide = this.insert(gatorTaxiOperation.getInput1(), gatorTaxiOperation.getInput2(), gatorTaxiOperation.getInput3());
                     if(gtRide == null){
                         this.writeResult("Duplicate RideNumber");
                         break outerLoop;
@@ -118,14 +118,14 @@ public class gatorTaxi {
                  * Execute cancel ride operation based on ride number
                  */
                 case CancelRide:
-                    this.cancelRide(operation.getInput1());
+                    this.cancelRide(gatorTaxiOperation.getInput1());
                     break;
 
                 /**
                  * Execute update ride operation based on ride number and update the trip duration
                  */
                 case UpdateTrip:
-                    this.updateTrip(operation.getInput1(), operation.getInput2());
+                    this.updateTrip(gatorTaxiOperation.getInput1(), gatorTaxiOperation.getInput2());
                     break;
             }
             System.out.println("\n---RBT---");
@@ -183,7 +183,7 @@ public class gatorTaxi {
      * @return gator ride string if found
      */
     private String getNextRide() {
-        MinHeapNode node = this.minHeap.removeMin();
+        MinHeapNode node = this.minHeap.getMinNode();
         String noActiveRideMsg = "No active ride requests";
 
         /**
@@ -268,20 +268,20 @@ public class gatorTaxi {
      * @param tripDuration - trip duration
      * @return GatorTaxiRide object if the node was successfully inserted else return null
      */
-    private GatorTaxiRide insert(int rideNumber, int rideCost, int tripDuration) {
-        GatorTaxiRide gatorTaxiRide = new GatorTaxiRide(rideNumber, rideCost, tripDuration);
+    private Ride insert(int rideNumber, int rideCost, int tripDuration) {
+        Ride ride = new Ride(rideNumber, rideCost, tripDuration);
 
-        RedBlackTreeNode rbTreeNewNode = this.redBlackTree.insert(gatorTaxiRide);
+        RedBlackTreeNode rbTreeNewNode = this.redBlackTree.insert(ride);
         if(rbTreeNewNode == null)
         {
             return null;
         }
-        MinHeapNode minHeapNewNode = this.minHeap.insert(gatorTaxiRide);
+        MinHeapNode minHeapNewNode = this.minHeap.insert(ride);
 
         //Update pointers to the nodes
         rbTreeNewNode.setPtrToMinHeapNode(minHeapNewNode);
         minHeapNewNode.setPtrToRBTreeNode(rbTreeNewNode);
-        return gatorTaxiRide;
+        return ride;
     }
 
 

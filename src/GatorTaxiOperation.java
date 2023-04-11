@@ -1,6 +1,6 @@
-public class Operation {
+public class GatorTaxiOperation {
 
-    private OperationCode operationCode;
+    private GatorTaxiOperationCode gatorTaxiOperationCode;
 
     /**
      * Input parameter 1
@@ -17,30 +17,30 @@ public class Operation {
      */
     private Integer input3;
 
-    public Operation(OperationCode operationCode, Integer input1, Integer input2) {
-        this.operationCode = operationCode;
+    public GatorTaxiOperation(GatorTaxiOperationCode gatorTaxiOperationCode, Integer input1, Integer input2) {
+        this.gatorTaxiOperationCode = gatorTaxiOperationCode;
         this.input1 = input1;
         this.input2 = input2;
     }
 
-    public Operation(OperationCode operationCode, Integer input1, Integer input2, Integer input3) {
-        this.operationCode = operationCode;
+    public GatorTaxiOperation(GatorTaxiOperationCode gatorTaxiOperationCode, Integer input1, Integer input2, Integer input3) {
+        this.gatorTaxiOperationCode = gatorTaxiOperationCode;
         this.input1 = input1;
         this.input2 = input2;
         this.input3 = input3;
     }
 
-    public Operation(OperationCode operationCode, Integer input1) {
-        this.operationCode = operationCode;
+    public GatorTaxiOperation(GatorTaxiOperationCode gatorTaxiOperationCode, Integer input1) {
+        this.gatorTaxiOperationCode = gatorTaxiOperationCode;
         this.input1 = input1;
     }
 
-    public Operation(OperationCode operationCode) {
-        this.operationCode = operationCode;
+    public GatorTaxiOperation(GatorTaxiOperationCode gatorTaxiOperationCode) {
+        this.gatorTaxiOperationCode = gatorTaxiOperationCode;
     }
 
-    public OperationCode getOperationCode() {
-        return this.operationCode;
+    public GatorTaxiOperationCode getOperationCode() {
+        return this.gatorTaxiOperationCode;
     }
 
     public Integer getInput1() {
@@ -56,7 +56,7 @@ public class Operation {
     }
 
     public String toString() {
-        String outputStr = operationCode.toString();
+        String outputStr = gatorTaxiOperationCode.toString();
         if (input1 != null) {
             outputStr = outputStr + " " + input1;
         }

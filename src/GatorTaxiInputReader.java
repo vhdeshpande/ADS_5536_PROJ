@@ -14,18 +14,18 @@ public class GatorTaxiInputReader {
      * @return list of operations read from the input file
      * @throws FileNotFoundException
      */
-    public List<Operation> getOperationListFromInputFile(String inputFileName) throws FileNotFoundException {
-        List<Operation> operationList = new ArrayList<>();
+    public List<GatorTaxiOperation> getOperationListFromInputFile(String inputFileName) throws FileNotFoundException {
+        List<GatorTaxiOperation> gatorTaxiOperationList = new ArrayList<>();
         File file = new File(inputFileName);
         Scanner sc = new Scanner(file);
 
         while (sc.hasNextLine()) {
-            Operation operation = this.getOperationFromInputStr(sc.nextLine());
-            if (operation != null)
-                operationList.add(operation);
+            GatorTaxiOperation gatorTaxiOperation = this.getOperationFromInputStr(sc.nextLine());
+            if (gatorTaxiOperation != null)
+                gatorTaxiOperationList.add(gatorTaxiOperation);
         }
 
-        return operationList;
+        return gatorTaxiOperationList;
     }
 
     /**
@@ -33,8 +33,8 @@ public class GatorTaxiInputReader {
      * @param s - operation to perform string from the input file
      * @return operation to perform
      */
-    private Operation getOperationFromInputStr(String s) {
-        Operation operation = null;
+    private GatorTaxiOperation getOperationFromInputStr(String s) {
+        GatorTaxiOperation gatorTaxiOperation = null;
         Pattern pattern = Pattern.compile("^([A-Za-z]+)\\(([\\-0-9,]*)\\)$");
         Matcher matcher = pattern.matcher(s.trim());
         if (matcher.find()) {
@@ -43,7 +43,7 @@ public class GatorTaxiInputReader {
             Integer input1 = null;
             Integer input2 = null;
             String inputStr[] = null;
-            switch (OperationCode.valueOf(op)) {
+            switch (GatorTaxiOperationCode.valueOf(op)) {
 
                 /**
                  * input1 - ride number
@@ -56,7 +56,7 @@ public class GatorTaxiInputReader {
                     if (inputStr.length > 1) {
                         input2 = Integer.parseInt(inputStr[1]);
                     }
-                    operation = new Operation(OperationCode.Print, input1, input2);
+                    gatorTaxiOperation = new GatorTaxiOperation(GatorTaxiOperationCode.Print, input1, input2);
                     break;
 
                 /**
@@ -69,15 +69,15 @@ public class GatorTaxiInputReader {
                     input1 = Integer.parseInt(inputStr[0]);
                     input2 = Integer.parseInt(inputStr[1]);
                     Integer  input3 = Integer.parseInt(inputStr[2]);
-                    operation = new Operation(OperationCode.Insert, input1, input2, input3);
+                    gatorTaxiOperation = new GatorTaxiOperation(GatorTaxiOperationCode.Insert, input1, input2, input3);
                     break;
 
                 case GetNextRide:
-                    operation = new Operation(OperationCode.GetNextRide);
+                    gatorTaxiOperation = new GatorTaxiOperation(GatorTaxiOperationCode.GetNextRide);
                     break;
 
                 case CancelRide:
-                    operation = new Operation(OperationCode.CancelRide, Integer.parseInt(inputValues));
+                    gatorTaxiOperation = new GatorTaxiOperation(GatorTaxiOperationCode.CancelRide, Integer.parseInt(inputValues));
                     break;
 
                 /**
@@ -88,14 +88,14 @@ public class GatorTaxiInputReader {
                     inputStr = inputValues.split(",");
                     input1 = Integer.parseInt(inputStr[0]);
                     input2 = Integer.parseInt(inputStr[1]);
-                    operation = new Operation(OperationCode.UpdateTrip, input1, input2);
+                    gatorTaxiOperation = new GatorTaxiOperation(GatorTaxiOperationCode.UpdateTrip, input1, input2);
                     break;
 
                 default:
                     break;
             }
         }
-        return operation;
+        return gatorTaxiOperation;
     }
 
 }
