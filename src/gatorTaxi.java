@@ -78,8 +78,6 @@ public class gatorTaxi {
     private void executeOperations() throws Exception {
         outerLoop:
         for(GatorTaxiOperation gatorTaxiOperation : gatorTaxiOperations) {
-//            this.writeResult(operation.toString());
-            System.out.println("\n\n"+ gatorTaxiOperation.toString());
             switch (gatorTaxiOperation.getOperationCode()) {
 
                 /**
@@ -128,11 +126,6 @@ public class gatorTaxi {
                     this.updateTrip(gatorTaxiOperation.getInput1(), gatorTaxiOperation.getInput2());
                     break;
             }
-            System.out.println("\n---RBT---");
-            redBlackTree.inorderTraversal();
-
-            System.out.println("\n---MH---");
-            minHeap.print();
         }
         closeWriter();
     }
@@ -233,7 +226,6 @@ public class gatorTaxi {
         for (RedBlackTreeNode node : result){
             if (node != null)
             {
-                System.out.print("(" + node.getValue().getRideNumber() + ", " + node.getValue().getRideCost() + ", " + node.getValue().getTripDuration() + ") ");
                 res = res + node.getValue().toString();
             }
             if(count != 0)
