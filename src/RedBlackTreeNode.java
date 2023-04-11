@@ -10,6 +10,11 @@ public class RedBlackTreeNode {
 
     private Color color;
 
+    /**
+     * Reference to the correspinding node in the min heap
+     */
+    private MinHeapNode ptrToMinHeapNode;
+
     public MinHeapNode getPtrToMinHeapNode() {
         return ptrToMinHeapNode;
     }
@@ -17,8 +22,6 @@ public class RedBlackTreeNode {
     public void setPtrToMinHeapNode(MinHeapNode ptrToMinHeapNode) {
         this.ptrToMinHeapNode = ptrToMinHeapNode;
     }
-
-    private MinHeapNode ptrToMinHeapNode;
 
     public GatorTaxiRide getValue() {
         return value;
@@ -82,14 +85,27 @@ public class RedBlackTreeNode {
         if (parent == null){
             return null;
         }
-        if (isOnLeft()){
+        if (isLeftChild()){
             return parent.right;
         }
         return parent.left;
     }
 
-    public Boolean isOnLeft()
+    /**
+     * Checks if the node is the left child of its parent
+     * @return Boolean - returns true if the node is the left child of its parent node
+     */
+    public Boolean isLeftChild()
     {
         return this == parent.left;
     }
+
+    /**
+     * Checks if the node is the right child of its parent
+     * @return Boolean - returns true if the node is the right child of its parent node
+     */
+    public boolean isRightChild() {
+        return this == parent.right;
+    }
+
 }

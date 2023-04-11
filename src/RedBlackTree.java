@@ -223,7 +223,6 @@ public class RedBlackTree {
      * @param node - node to delete
      */
     public void deleteNode(RedBlackTreeNode node){
-            // case 1: node is a leaf
             /**
              * If the node to delete is a leaf node
              */
@@ -316,14 +315,7 @@ public class RedBlackTree {
         return node != null && node.getColor() == Color.RED;
     }
 
-    /**
-     * Checks if the input node is the right child of its parent node
-     * @param node - red-black tree node
-     * @return Boolean - returns true if the node is the right child of its parent node
-     */
-    private boolean isRightChild(RedBlackTreeNode node) {
-        return node == node.getParent().getRight();
-    }
+
     private boolean hasRedChild(RedBlackTreeNode node) {
         return (node.getLeft() != null && node.getLeft().getColor() == Color.RED) || (node.getRight() != null && node.getRight().getColor() == Color.RED);
     }
@@ -353,7 +345,7 @@ public class RedBlackTree {
                 if (hasRedChild(sibling)) {
                     // Sibling has at least one red child
                     if (sibling.getLeft() != null && isRed(sibling.getLeft())) {
-                        if (isRightChild(sibling)) {
+                        if (sibling.isRightChild()) {
                             sibling.getLeft().setColor(sibling.getColor());
                             sibling.setColor(parent.getColor());
                             rotateRight(sibling);
@@ -362,7 +354,7 @@ public class RedBlackTree {
                             rotateRight(parent);
                         }
                     } else {
-                        if (isRightChild(sibling)) {
+                        if (sibling.isRightChild()) {
                             sibling.getRight().setColor(parent.getColor());
                             rotateLeft(parent);
                         } else {
@@ -385,7 +377,7 @@ public class RedBlackTree {
                 // Sibling is red, rotate to make sibling black
                 sibling.setColor(Color.BLACK);
                 parent.setColor(Color.RED);
-                if (isRightChild(sibling)) {
+                if (sibling.isRightChild()) {
                     rotateLeft(parent);
                     sibling = parent.getRight();
                 } else {
