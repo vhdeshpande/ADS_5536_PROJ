@@ -9,19 +9,28 @@ public class MinHeapNode {
 
     private GatorTaxiRide value;
     private int index;
+
+    /**
+     * Reference to the corresponding node in the red-black tree
+     */
     private RedBlackTreeNode ptrToRBTreeNode;
+
     public int getIndex() {
         return index;
     }
+
     public void setIndex(int index) {
         this.index = index;
     }
+
     public RedBlackTreeNode getPtrToRBTreeNode() {
         return ptrToRBTreeNode;
     }
+
     public void setPtrToRBTreeNode(RedBlackTreeNode ptrToRBTreeNode) {
         this.ptrToRBTreeNode = ptrToRBTreeNode;
     }
+
     public MinHeapNode(GatorTaxiRide value, int index) {
         this.value = value;
         this.index = index;

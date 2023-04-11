@@ -2,10 +2,19 @@ public class Operation {
 
     private OperationCode operationCode;
 
+    /**
+     * Input parameter 1
+     */
     private Integer input1;
 
+    /**
+     * Input parameter 2
+     */
     private Integer input2;
 
+    /**
+     * Input parameter 3
+     */
     private Integer input3;
 
     public Operation(OperationCode operationCode, Integer input1, Integer input2) {

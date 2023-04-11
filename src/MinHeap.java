@@ -1,6 +1,13 @@
+/**
+ * Min Heap Class
+ */
 public class MinHeap {
     private MinHeapNode[] minHeap;
+
+    //Min heap current size
     private int size;
+
+    //Maximum min heap capacity
     private int capacity;
 
     public MinHeap(int capacity) {
@@ -9,6 +16,11 @@ public class MinHeap {
         this.minHeap = new MinHeapNode[this.capacity+1];
     }
 
+    /**
+     * Insert node in min heap
+     * @param gatorTaxiRide -gator taxi ride
+     * @return new node
+     */
     public MinHeapNode insert(GatorTaxiRide gatorTaxiRide) {
         if (isFull()) {
             return null;
@@ -19,15 +31,33 @@ public class MinHeap {
         size++;
         return newNode;
     }
+
+    /**
+     * Check if the min heap is full
+     * @return Boolean value if the min heap is full
+     */
     private boolean isFull() {
         return size == minHeap.length - 1;
     }
+
+    /**
+     * Comparator function based on ride cost
+     * @param node1 - node 1
+     * @param node2 - node 2
+     * @return -1,0,1 based on node1 and node2 values
+     */
     private int compare(MinHeapNode node1, MinHeapNode node2) {
+        /**
+         * Compares ride cost
+         */
         if (node1.getValue().getRideCost() < node2.getValue().getRideCost()) {
             return -1;
         } else if (node1.getValue().getRideCost() > node2.getValue().getRideCost()) {
             return 1;
         } else {
+            /**
+             * Compares ride duration if nodes have the same ride cost
+             */
             if (node1.getValue().getTripDuration() < node2.getValue().getTripDuration()) {
                 return -1;
             } else if (node1.getValue().getTripDuration() > node2.getValue().getTripDuration()) {
@@ -38,6 +68,11 @@ public class MinHeap {
         }
     }
 
+    /**
+     * Swap nodes
+     * @param index1 - index
+     * @param index2 - index
+     */
     private void swap(int index1, int index2) {
         MinHeapNode temp = this.minHeap[index1];
         this.minHeap[index1] = this.minHeap[index2];
@@ -60,6 +95,10 @@ public class MinHeap {
     }
 
 
+    /**
+     * Check if the min heap is empty
+     * @return Boolean value checking if the min heap is empty
+     */
     private boolean isEmpty() {
         return size == 0;
     }
@@ -69,19 +108,22 @@ public class MinHeap {
         for (int i = 0; i < size; i++) {
             System.out.print("(" + this.minHeap[i].getValue().getRideNumber() + " " + this.minHeap[i].getValue().getRideCost() + " " + minHeap[i].getValue().getTripDuration() + ") ");
         }
-
     }
 
+    /**
+     * Delete node from the min heap
+     * @param node - node to delete
+     */
     public void deleteNode(MinHeapNode node) {
-        // Find the index of the node to be deleted
+        // Get the index of the node to be deleted
         int index = node.getIndex();
-        // Replace the node with the last node in the heap
+        // Replace the node to delete with the last index node in the min heap and set the last node to null
         this.minHeap[index] = this.minHeap[this.size-1];
         this.minHeap[index].setIndex(index);
         this.minHeap[this.size-1] = null;
         this.size--;
 
-        // Perform a sift-up or sift-down operation to restore the heap property
+        // Perform a heapify up or heapify down to maintain the heap property
         if(this.minHeap[index] != null){
             if (index == 0 || compare(this.minHeap[index], this.minHeap[getParentIndex(index)]) >= 0) {
                 heapifyDown(index);
@@ -91,42 +133,54 @@ public class MinHeap {
         }
     }
 
+    /**
+     * Heapify down the node at the index until its parent is smaller than the node
+     * @param index - index
+     */
     private void heapifyDown(int index) {
         int left = index * 2 + 1;
         int right = index * 2 + 2;
-        int smallest = index;
+        int minIndex = index;
 
-        // Find the smallest of the three nodes: the current node and its two children
-        if (left < size && compare(this.minHeap[left], this.minHeap[smallest]) < 0) {
-            smallest = left;
+        // Finds the minIndex of the node, left child and right child
+        if (left < size && compare(this.minHeap[left], this.minHeap[minIndex]) < 0) {
+            minIndex = left;
         }
-        if (right < size && compare(this.minHeap[right], this.minHeap[smallest]) < 0) {
-            smallest = right;
+        if (right < size && compare(this.minHeap[right], this.minHeap[minIndex]) < 0) {
+            minIndex = right;
         }
 
-        // If the current node is not the smallest, swap it with the smallest and sift down again
-        if (smallest != index) {
-            swap(index, smallest);
-            heapifyDown(smallest);
+        // If the current node is not the minimum index, swap it with the minIndex and heapify down
+        if (minIndex != index) {
+            swap(index, minIndex);
+            heapifyDown(minIndex);
         }
     }
 
-    // Sift up a node at the given index until its parent is smaller than it
+    /**
+     * Heapify up the node at the index until its parent is smaller than the node
+     * @param index
+     */
     private void heapifyUp(int index) {
-//      Stop heapify if node reaches the root, index is 0
+        //Root node reached
         if (index == 0) {
-            return; // Root node, stop recursion
+            return;
         }
 
         int parent = (index - 1) / 2;
 
-        // If the parent is greater than the current node, swap them and sift up again
+        // If the parent is greater than the node, swap  and heapify up
         if (compare(minHeap[index], minHeap[parent]) < 0) {
             swap(index, parent);
             heapifyUp(parent);
         }
     }
 
+    /**
+     * Get parent index for node at index
+     * @param index - index
+     * @return parent node index
+     */
     private int getParentIndex(int index) {
         return (index - 1) / 2;
     }

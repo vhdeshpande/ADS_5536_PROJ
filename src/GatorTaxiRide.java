@@ -1,3 +1,4 @@
+
 public class GatorTaxiRide {
     private int rideNumber;
     private int rideCost;

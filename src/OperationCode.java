@@ -1,4 +1,6 @@
-//Enum for the operations - Initialize/Insert/Delete/Search
+/**
+ * Enum for the operations to execute - Print, GetNextRide, Insert, CancelRide and UpdateTrip
+ */
 public enum OperationCode {
 
     Print("Print"),

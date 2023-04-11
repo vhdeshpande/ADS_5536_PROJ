@@ -1,6 +1,7 @@
 public class RedBlackTreeNode {
 
     private GatorTaxiRide value;
+
     private RedBlackTreeNode parent;
 
     private RedBlackTreeNode left;
@@ -59,23 +60,31 @@ public class RedBlackTreeNode {
         this.color = color;
     }
 
+    /**
+     * Initialize red-black tree node
+     * @param value
+     */
     RedBlackTreeNode(GatorTaxiRide value){
         super();
         this.value = value;
         this.parent = null;
         this.left = null;
         this.right = null;
+        //Set initial color to RED
         this.color = Color.RED;
     }
 
+    /**
+     * Get sibling node
+     * @return sibling or null if no parent
+     */
     public RedBlackTreeNode sibling() {
-        // sibling null if no parent
-        if (parent == null)
+        if (parent == null){
             return null;
-
-        if (isOnLeft())
+        }
+        if (isOnLeft()){
             return parent.right;
-
+        }
         return parent.left;
     }
 

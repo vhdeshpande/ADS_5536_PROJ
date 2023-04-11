@@ -186,7 +186,7 @@ public class RedBlackTree {
             inorderTraversalHelper(node.getRight());
         }
     }
-    //function to print inorder traversal
+
     public void inorderTraversal()
     {
         inorderTraversalHelper(this.root);
@@ -373,7 +373,7 @@ public class RedBlackTree {
                     }
                     parent.setColor(Color.BLACK);
                 } else {
-                    // Sibling has two black children, double black pushed up to sibling
+                    // Sibling has two black children, double black is pushed up to sibling
                     sibling.setColor(Color.RED);
                     if (isRed(parent)) {
                         parent.setColor(Color.BLACK);
@@ -397,12 +397,25 @@ public class RedBlackTree {
         }
     }
 
-    public List<RedBlackTreeNode> rangeSearch(int a, int b) {
+    /**
+     * Range Search wrapper method
+     * @param range1 - range lower bound
+     * @param range2 - range upper bound
+     * @return list of gator rides between the range specified
+     */
+    public List<RedBlackTreeNode> rangeSearch(int range1, int range2) {
         List<RedBlackTreeNode> result = new ArrayList<>();
-        rangeSearch(this.root, a, b, result);
+        rangeSearch(this.root, range1, range2, result);
         return result;
     }
 
+    /**
+     * Range Search based on the ride number property
+     * @param node - current node
+     * @param range1 - range lower bound
+     * @param range2 - range upper bound
+     * @param result - list of gator rides between the range specified
+     */
     private void rangeSearch(RedBlackTreeNode node, int range1, int range2, List<RedBlackTreeNode> result) {
         if (node == null) {
             return;
