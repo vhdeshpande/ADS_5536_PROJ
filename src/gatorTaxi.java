@@ -3,8 +3,10 @@ import java.util.List;
 
 public class gatorTaxi {
 
+//    Red black tree
     RedBlackTree redBlackTree = new RedBlackTree();
 
+//    Min Heap
     MinHeap minHeap = new MinHeap(100);
 
 //    Operations list read from the input file
@@ -14,12 +16,12 @@ public class gatorTaxi {
     GatorTaxiRideOutputWriter gatorTaxiRideOutputWriter;
 
 //    input file reader
-    GatorTaxiRideInputReader fileReader;
+    GatorTaxiRideInputReader gatorTaxiRideInputReader;
 
     public gatorTaxi() {
         this.operations = new ArrayList<>();
         this.gatorTaxiRideOutputWriter = new GatorTaxiRideOutputWriter();
-        this.fileReader = new GatorTaxiRideInputReader();
+        this.gatorTaxiRideInputReader = new GatorTaxiRideInputReader();
     }
 
     private void writeResult(String outputStr) {
@@ -39,7 +41,7 @@ public class gatorTaxi {
     }
 
     private void readOperations(String fileName) throws Exception{
-        this.operations = fileReader.getOperationsFromFile(fileName);
+        this.operations = gatorTaxiRideInputReader.getOperationsFromFile(fileName);
     }
 
     private void performOperations() throws Exception {

@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6592f9eb-c08c-4d36-a801-5a97a47ac842" name="Changes" comment="Fix gatorTaxi">
+    <list default="true" id="6592f9eb-c08c-4d36-a801-5a97a47ac842" name="Changes" comment="Update gatorTaxi">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GatorTaxiRideOutputWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GatorTaxiRideOutputWriter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gatorTaxi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gatorTaxi.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -77,7 +76,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1680845847964</updated>
-      <workItem from="1680845849588" duration="93437000" />
+      <workItem from="1680845849588" duration="93563000" />
     </task>
     <task id="LOCAL-00001" summary="Changing Input File Reader Class Name">
       <created>1680849994509</created>
@@ -121,7 +120,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681182420473</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Update gatorTaxi">
+      <created>1681182641087</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1681182641087</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -134,7 +140,8 @@
     <MESSAGE value="Update, print, cancel implementation" />
     <MESSAGE value="Fix delete red black tree and min heap" />
     <MESSAGE value="Fix gatorTaxi" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix gatorTaxi" />
+    <MESSAGE value="Update gatorTaxi" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update gatorTaxi" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
