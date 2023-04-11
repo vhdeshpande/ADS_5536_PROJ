@@ -7,13 +7,13 @@ public class gatorTaxi {
 
     MinHeap minHeap = new MinHeap(100);
 
-    //Operations list read from the input file
+//    Operations list read from the input file
     List<Operation> operations;
 
-    //Output file writer
+//    Output file writer
     GatorTaxiRideOutputWriter gatorTaxiRideOutputWriter;
 
-    //input file reader
+//    input file reader
     GatorTaxiRideInputReader fileReader;
 
     public gatorTaxi() {
@@ -22,9 +22,9 @@ public class gatorTaxi {
         this.fileReader = new GatorTaxiRideInputReader();
     }
 
-    private void writeResult(String text) {
+    private void writeResult(String outputStr) {
         try {
-            this.gatorTaxiRideOutputWriter.writeToFile(text);
+            this.gatorTaxiRideOutputWriter.writeOutputToFile(outputStr);
         } catch (Exception e) {
             e.printStackTrace();
         }

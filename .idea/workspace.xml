@@ -4,15 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6592f9eb-c08c-4d36-a801-5a97a47ac842" name="Changes" comment="Fix delete red black tree and min heap">
+    <list default="true" id="6592f9eb-c08c-4d36-a801-5a97a47ac842" name="Changes" comment="Fix gatorTaxi">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Color.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Color.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/InputFileReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GatorTaxiRideInputReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MinHeap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MinHeap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Operation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Operation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OperationCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/OperationCode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/RedBlackTree.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RedBlackTree.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ResultWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GatorTaxiRideOutputWriter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GatorTaxiRideOutputWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GatorTaxiRideOutputWriter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gatorTaxi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gatorTaxi.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -83,7 +77,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1680845847964</updated>
-      <workItem from="1680845849588" duration="93189000" />
+      <workItem from="1680845849588" duration="93437000" />
     </task>
     <task id="LOCAL-00001" summary="Changing Input File Reader Class Name">
       <created>1680849994509</created>
@@ -120,7 +114,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681166324429</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Fix gatorTaxi">
+      <created>1681182420473</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1681182420473</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -132,7 +133,8 @@
     <MESSAGE value="Insert implementation" />
     <MESSAGE value="Update, print, cancel implementation" />
     <MESSAGE value="Fix delete red black tree and min heap" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix delete red black tree and min heap" />
+    <MESSAGE value="Fix gatorTaxi" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix gatorTaxi" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -20,7 +20,7 @@ class GatorTaxiRideOutputWriter {
         writer = new FileWriter(OUTPUT_FILE_NAME);
     }
 
-    public void writeToFile(String txt) throws Exception {
+    public void writeOutputToFile(String txt) throws Exception {
         this.writer.write(String.format("%s\n",txt));
     }
 
