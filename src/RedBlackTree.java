@@ -95,20 +95,16 @@ public class RedBlackTree {
      * @param node node to rotate
      */
     private void handleRRConflict(RedBlackTreeNode node) {
-        while (node.getParent() != null && node.getParent().getColor() == Color.RED)
-        {
-            if (node.getParent() == node.getParent().getParent().getLeft())
-            {
+        while (node.getParent() != null && node.getParent().getColor() == Color.RED) {
+            if (node.getParent() == node.getParent().getParent().getLeft()) {
                 RedBlackTreeNode uncle = node.getParent().getParent().getRight();
-                if (uncle != null && uncle.getColor() == Color.RED)
-                {
+                if (uncle != null && uncle.getColor() == Color.RED) {
                     node.getParent().setColor(Color.BLACK);
                     uncle.setColor(Color.BLACK);
                     node.getParent().getParent().setColor(Color.RED);
                     node = node.getParent().getParent();
                 }
-                else
-                {
+                else {
                     if (node == node.getParent().getRight())
                     {
                         node = node.getParent();
@@ -119,19 +115,15 @@ public class RedBlackTree {
                     rotateRight(node.getParent().getParent());
                 }
             }
-            else
-            {
+            else {
                 RedBlackTreeNode uncle = node.getParent().getParent().getLeft();
-                if (uncle != null && uncle.getColor() == Color.RED)
-                {
+                if (uncle != null && uncle.getColor() == Color.RED) {
                     node.getParent().setColor(Color.BLACK);
                     uncle.setColor(Color.BLACK);
                     node.getParent().getParent().setColor(Color.RED);
                     node = node.getParent().getParent();
-                } else
-                {
-                    if (node == node.getParent().getLeft())
-                    {
+                } else {
+                    if (node == node.getParent().getLeft()) {
                         node = node.getParent();
                         rotateRight(node);
                     }
@@ -150,25 +142,21 @@ public class RedBlackTree {
      * @return node - current subtree root node
      */
     private RedBlackTreeNode redBlackTreeInsertHelper(RedBlackTreeNode root, RedBlackTreeNode newNode) {
-        if(root == null)
-        {
+        if(root == null) {
             return newNode;
         }
-        else if(root.getValue().getRideNumber() == newNode.getValue().getRideNumber())
-        {
+        else if(root.getValue().getRideNumber() == newNode.getValue().getRideNumber()) {
             isDuplicateKey = true;
             return null;
         }
-        else if(newNode.getValue().getRideNumber() < root.getValue().getRideNumber())
-        {
+        else if(newNode.getValue().getRideNumber() < root.getValue().getRideNumber()) {
             root.setLeft(redBlackTreeInsertHelper(root.getLeft(), newNode));
             if(root.getLeft() != null){
                 root.getLeft().setParent(root);
             }
             return root;
         }
-        else
-        {
+        else {
             root.setRight(redBlackTreeInsertHelper(root.getRight(), newNode));
             if(root.getRight() != null){
                 root.getRight().setParent(root);
@@ -179,16 +167,14 @@ public class RedBlackTree {
 
     private void inorderTraversalHelper(RedBlackTreeNode node)
     {
-        if(node!=null)
-        {
+        if(node!=null) {
             inorderTraversalHelper(node.getLeft());
             System.out.printf("(%d %d %d (%s))", node.getValue().getRideNumber(), node.getValue().getRideCost(), node.getValue().getTripDuration(), node.getColor().toString());
             inorderTraversalHelper(node.getRight());
         }
     }
 
-    public void inorderTraversal()
-    {
+    public void inorderTraversal() {
         inorderTraversalHelper(this.root);
     }
 
@@ -422,5 +408,4 @@ public class RedBlackTree {
             rangeSearch(node.getRight(), range1, range2, result);
         }
     }
-
 }

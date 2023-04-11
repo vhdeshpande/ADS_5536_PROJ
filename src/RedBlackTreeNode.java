@@ -11,7 +11,7 @@ public class RedBlackTreeNode {
     private Color color;
 
     /**
-     * Reference to the correspinding node in the min heap
+     * Reference to the corresponding node in the min heap
      */
     private MinHeapNode ptrToMinHeapNode;
 
@@ -95,8 +95,7 @@ public class RedBlackTreeNode {
      * Checks if the node is the left child of its parent
      * @return Boolean - returns true if the node is the left child of its parent node
      */
-    public Boolean isLeftChild()
-    {
+    public Boolean isLeftChild() {
         return this == parent.left;
     }
 

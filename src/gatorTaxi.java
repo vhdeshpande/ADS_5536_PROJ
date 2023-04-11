@@ -43,7 +43,7 @@ public class gatorTaxi {
      * Writes result to the output file
      * @param output - output string to write
      */
-    private void writeResult(String output) {
+    private void writeOutput(String output) {
         try {
             this.gatorTaxiOutputWriter.writeOutputToFile(output);
         } catch (Exception e) {
@@ -92,7 +92,7 @@ public class gatorTaxi {
                     } else {
                         ride = this.print(gatorTaxiOperation.getInput1(), gatorTaxiOperation.getInput2());
                     }
-                    this.writeResult(ride);
+                    this.writeOutput(ride);
                     break;
 
                 /**
@@ -100,7 +100,7 @@ public class gatorTaxi {
                  */
                 case GetNextRide:
                     String nextRide = this.getNextRide();
-                    this.writeResult(nextRide);
+                    this.writeOutput(nextRide);
                     break;
 
                 /**
@@ -109,7 +109,7 @@ public class gatorTaxi {
                 case Insert:
                     Ride gtRide = this.insert(gatorTaxiOperation.getInput1(), gatorTaxiOperation.getInput2(), gatorTaxiOperation.getInput3());
                     if(gtRide == null){
-                        this.writeResult("Duplicate RideNumber");
+                        this.writeOutput("Duplicate RideNumber");
                         break outerLoop;
                     }
                     break;
@@ -268,7 +268,7 @@ public class gatorTaxi {
      * @param tripDuration - trip duration
      * @return GatorTaxiRide object if the node was successfully inserted else return null
      */
-    private Ride insert(int rideNumber, int rideCost, int tripDuration) {
+    private Ride insert(Integer rideNumber, Integer rideCost, Integer tripDuration) {
         Ride ride = new Ride(rideNumber, rideCost, tripDuration);
 
         RedBlackTreeNode rbTreeNewNode = this.redBlackTree.insert(ride);
