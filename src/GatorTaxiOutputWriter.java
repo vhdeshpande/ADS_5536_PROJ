@@ -7,7 +7,7 @@ class GatorTaxiOutputWriter {
      */
     private static final String OUTPUT_FILE_NAME = "output_file.txt";
 
-    private FileWriter fileWriter;
+    private FileWriter outputFileWriter;
 
     public GatorTaxiOutputWriter() {
         try {
@@ -23,7 +23,7 @@ class GatorTaxiOutputWriter {
      * @throws Exception
      */
     private void initOutputFile() throws Exception {
-        fileWriter = new FileWriter(OUTPUT_FILE_NAME);
+        outputFileWriter = new FileWriter(OUTPUT_FILE_NAME);
     }
 
     /**
@@ -32,7 +32,7 @@ class GatorTaxiOutputWriter {
      * @throws Exception
      */
     public void writeOutputToFile(String outputStr) throws Exception {
-        this.fileWriter.write(String.format("%s\n",outputStr));
+        this.outputFileWriter.write(String.format("%s\n",outputStr));
     }
 
     /**
@@ -40,6 +40,6 @@ class GatorTaxiOutputWriter {
      * @throws Exception
      */
     public void closeOutputWriter() throws Exception {
-        fileWriter.close();
+        outputFileWriter.close();
     }
 }

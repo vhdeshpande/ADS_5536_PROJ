@@ -6,7 +6,11 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
 public class GatorTaxiInputReader {
+
+    private static final String OPERATION_REGEX = "^([A-Za-z]+)\\(([\\-0-9,]*)\\)$";
+
 
     /**
      * Read the operations from input file
@@ -16,11 +20,11 @@ public class GatorTaxiInputReader {
      */
     public List<GatorTaxiOperation> getOperationListFromInputFile(String inputFileName) throws FileNotFoundException {
         List<GatorTaxiOperation> gatorTaxiOperationList = new ArrayList<>();
-        File file = new File(inputFileName);
-        Scanner sc = new Scanner(file);
+        File inputFile = new File(inputFileName);
+        Scanner scanner = new Scanner(inputFile);
 
-        while (sc.hasNextLine()) {
-            GatorTaxiOperation gatorTaxiOperation = this.getOperationFromInputStr(sc.nextLine());
+        while (scanner.hasNextLine()) {
+            GatorTaxiOperation gatorTaxiOperation = this.getOperationFromInputStr(scanner.nextLine());
             if (gatorTaxiOperation != null)
                 gatorTaxiOperationList.add(gatorTaxiOperation);
         }
@@ -35,15 +39,15 @@ public class GatorTaxiInputReader {
      */
     private GatorTaxiOperation getOperationFromInputStr(String s) {
         GatorTaxiOperation gatorTaxiOperation = null;
-        Pattern pattern = Pattern.compile("^([A-Za-z]+)\\(([\\-0-9,]*)\\)$");
-        Matcher matcher = pattern.matcher(s.trim());
-        if (matcher.find()) {
-            String op = matcher.group(1);
-            String inputValues = matcher.group(2);
+        Pattern operationRegex = Pattern.compile(OPERATION_REGEX);
+        Matcher opMatch = operationRegex.matcher(s.trim());
+        if (opMatch.find()) {
+            String operation = opMatch.group(1);
+            String inputValues = opMatch.group(2);
             Integer input1 = null;
             Integer input2 = null;
             String inputStr[] = null;
-            switch (GatorTaxiOperationCode.valueOf(op)) {
+            switch (GatorTaxiOperationCode.valueOf(operation)) {
 
                 /**
                  * input1 - ride number
