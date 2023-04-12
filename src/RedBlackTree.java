@@ -14,7 +14,7 @@ public class RedBlackTree {
 
     public RedBlackTree(){
         super();
-        root = null;
+        this.root = null;
     }
 
     /**
@@ -30,7 +30,7 @@ public class RedBlackTree {
         }
         rightChild.setParent(node.getParent());
         if (node.getParent() == null) {
-            root = rightChild;
+            this.root = rightChild;
         } else if (node == node.getParent().getLeft()) {
             node.getParent().setLeft(rightChild);
         } else {
@@ -53,7 +53,7 @@ public class RedBlackTree {
         }
         leftChild.setParent(node.getParent());
         if (node.getParent() == null) {
-            root = leftChild;
+            this.root = leftChild;
         } else if (node == node.getParent().getRight()) {
             node.getParent().setRight(leftChild);
         } else {
@@ -69,7 +69,7 @@ public class RedBlackTree {
      * @return newNode - inserted node
      */
     public RedBlackTreeNode insert(Ride data) {
-        isDuplicateKey = false;
+        this.isDuplicateKey = false;
         RedBlackTreeNode newNode = new RedBlackTreeNode(data);
         if(this.root == null)
         {
@@ -79,7 +79,7 @@ public class RedBlackTree {
         }
         else
         {
-            redBlackTreeInsertHelper(this.root, newNode);
+            redBlackTreeInsertUtils(this.root, newNode);
             if(this.isDuplicateKey){
                 return null;
             }
@@ -97,10 +97,10 @@ public class RedBlackTree {
     private void handleRRConflict(RedBlackTreeNode node) {
         while (node.getParent() != null && node.getParent().getColor() == Color.RED) {
             if (node.getParent() == node.getParent().getParent().getLeft()) {
-                RedBlackTreeNode uncle = node.getParent().getParent().getRight();
-                if (uncle != null && uncle.getColor() == Color.RED) {
+                RedBlackTreeNode parSiblingNode = node.getParent().getParent().getRight();
+                if (parSiblingNode != null && parSiblingNode.getColor() == Color.RED) {
                     node.getParent().setColor(Color.BLACK);
-                    uncle.setColor(Color.BLACK);
+                    parSiblingNode.setColor(Color.BLACK);
                     node.getParent().getParent().setColor(Color.RED);
                     node = node.getParent().getParent();
                 }
@@ -116,10 +116,10 @@ public class RedBlackTree {
                 }
             }
             else {
-                RedBlackTreeNode uncle = node.getParent().getParent().getLeft();
-                if (uncle != null && uncle.getColor() == Color.RED) {
+                RedBlackTreeNode parSiblingNode = node.getParent().getParent().getLeft();
+                if (parSiblingNode != null && parSiblingNode.getColor() == Color.RED) {
                     node.getParent().setColor(Color.BLACK);
-                    uncle.setColor(Color.BLACK);
+                    parSiblingNode.setColor(Color.BLACK);
                     node.getParent().getParent().setColor(Color.RED);
                     node = node.getParent().getParent();
                 } else {
@@ -137,31 +137,31 @@ public class RedBlackTree {
 
     /**
      * Helper function for inserting a node in the red-black tree
-     * @param root - current root node of the subtree
+     * @param node - current node of the subtree
      * @param newNode - node to insert in the red-black tree
-     * @return node - current subtree root node
+     * @return node - current subtree node node
      */
-    private RedBlackTreeNode redBlackTreeInsertHelper(RedBlackTreeNode root, RedBlackTreeNode newNode) {
-        if(root == null) {
+    private RedBlackTreeNode redBlackTreeInsertUtils(RedBlackTreeNode node, RedBlackTreeNode newNode) {
+        if(node == null) {
             return newNode;
         }
-        else if(root.getValue().getRideNumber() == newNode.getValue().getRideNumber()) {
-            isDuplicateKey = true;
+        else if(node.getValue().getRideNumber() == newNode.getValue().getRideNumber()) {
+            this.isDuplicateKey = true;
             return null;
         }
-        else if(newNode.getValue().getRideNumber() < root.getValue().getRideNumber()) {
-            root.setLeft(redBlackTreeInsertHelper(root.getLeft(), newNode));
-            if(root.getLeft() != null){
-                root.getLeft().setParent(root);
+        else if(newNode.getValue().getRideNumber() < node.getValue().getRideNumber()) {
+            node.setLeft(redBlackTreeInsertUtils(node.getLeft(), newNode));
+            if(node.getLeft() != null){
+                node.getLeft().setParent(node);
             }
-            return root;
+            return node;
         }
         else {
-            root.setRight(redBlackTreeInsertHelper(root.getRight(), newNode));
-            if(root.getRight() != null){
-                root.getRight().setParent(root);
+            node.setRight(redBlackTreeInsertUtils(node.getRight(), newNode));
+            if(node.getRight() != null){
+                node.getRight().setParent(node);
             }
-            return root;
+            return node;
         }
     }
 
@@ -170,38 +170,38 @@ public class RedBlackTree {
      * @param rideNumber - ride number for the node to search
      * @return node - the red-black tree node if found otherwise returns null
      */
-    public RedBlackTreeNode search(Integer rideNumber) {
-        RedBlackTreeNode curr = this.root;
-        while (curr != null) {
-            if (rideNumber < curr.getValue().getRideNumber()) {
-                if (curr.getLeft() == null)
+    public RedBlackTreeNode redBlackTreeSearch(Integer rideNumber) {
+        RedBlackTreeNode currNode = this.root;
+        while (currNode != null) {
+            if (rideNumber < currNode.getValue().getRideNumber()) {
+                if (currNode.getLeft() == null)
                     break;
                 else
-                    curr = curr.getLeft();
-            } else if (rideNumber == curr.getValue().getRideNumber()) {
+                    currNode = currNode.getLeft();
+            } else if (rideNumber == currNode.getValue().getRideNumber()) {
                 break;
             } else {
-                if (curr.getRight() == null)
+                if (currNode.getRight() == null)
                     break;
                 else
-                    curr = curr.getRight();
+                    currNode = currNode.getRight();
             }
         }
 
-        return curr;
+        return currNode;
     }
 
     /**
      * Function to delete the input node in red-black tree
      * @param node - node to delete
      */
-    public void deleteNode(RedBlackTreeNode node){
+    public void redBlackTreeDeleteNodeUtils(RedBlackTreeNode node){
             /**
              * If the node to delete is a leaf node
              */
             if (node.getLeft() == null && node.getRight() == null) {
-                if (node == root) {
-                    root = null;
+                if (node == this.root) {
+                    this.root = null;
                     return;
                 }
                 if (node == null || node.getColor() == Color.BLACK) {
@@ -221,27 +221,27 @@ public class RedBlackTree {
              * If the node to delete has one child node
              */
             if (node.getLeft() == null || node.getRight() == null) {
-                RedBlackTreeNode child = node.getLeft() == null ? node.getRight() : node.getLeft();
-                if (node == root) {
-                    child.setParent(null);
-                    root = child;
-                    root.setColor(Color.BLACK);
+                RedBlackTreeNode childNode = node.getLeft() == null ? node.getRight() : node.getLeft();
+                if (node == this.root) {
+                    childNode.setParent(null);
+                    this.root = childNode;
+                    this.root.setColor(Color.BLACK);
                     node = null;
                     return;
                 }
                 if (node == null || node.getColor() == Color.BLACK) {
-                    if (child == null || child.getColor() == Color.BLACK) {
+                    if (childNode == null || childNode.getColor() == Color.BLACK) {
                         handleDoubleBlackConflict(node);
                     } else {
-                        child.setColor(Color.BLACK);
+                        childNode.setColor(Color.BLACK);
                     }
                 }
                 if (node == node.getParent().getLeft()) {
-                    node.getParent().setLeft(child);
+                    node.getParent().setLeft(childNode);
                 } else {
-                    node.getParent().setRight(child);
+                    node.getParent().setRight(childNode);
                 }
-                child.setParent(node.getParent());
+                childNode.setParent(node.getParent());
                 node = null;
                 return;
             }
@@ -254,7 +254,7 @@ public class RedBlackTree {
             MinHeapNode newNode = inorderSuccessor.getPtrToMinHeapNode();
             newNode.setPtrToRBTreeNode(node);
             node.setPtrToMinHeapNode(newNode);
-            deleteNode(inorderSuccessor);
+            redBlackTreeDeleteNodeUtils(inorderSuccessor);
     }
 
     /**
@@ -275,7 +275,7 @@ public class RedBlackTree {
      * @param node - node
      * @return Boolean - returns true if the node is black
      */
-    private boolean isBlack(RedBlackTreeNode node) {
+    private boolean isNodeBlack(RedBlackTreeNode node) {
         return node == null || node.getColor() == Color.BLACK;
     }
 
@@ -284,7 +284,7 @@ public class RedBlackTree {
      * @param node - node
      * @return Boolean - returns true if the node is red
      */
-    private boolean isRed(RedBlackTreeNode node) {
+    private boolean isNodeRed(RedBlackTreeNode node) {
         return node != null && node.getColor() == Color.RED;
     }
 
@@ -305,57 +305,57 @@ public class RedBlackTree {
             return;
         }
 
-        RedBlackTreeNode sibling = node.sibling();
-        RedBlackTreeNode par = node.getParent();
+        RedBlackTreeNode siblingNode = node.sibling();
+        RedBlackTreeNode parNode = node.getParent();
 
         /**
-         * If the sibling of the node is null, double black is shifted to its par
+         * If the siblingNode of the node is null, double black is shifted to its parNode
          */
-        if (sibling == null) {
-            handleDoubleBlackConflict(par);
+        if (siblingNode == null) {
+            handleDoubleBlackConflict(parNode);
         } else {
-            if (isBlack(sibling)) {
-                if (hasRedChild(sibling)) {
+            if (isNodeBlack(siblingNode)) {
+                if (hasRedChild(siblingNode)) {
                     // Sibling has at least one red child
-                    if (sibling.getLeft() != null && isRed(sibling.getLeft())) {
-                        if (sibling.isRightChild()) {
-                            sibling.getLeft().setColor(sibling.getColor());
-                            sibling.setColor(par.getColor());
-                            rotateRight(sibling);
+                    if (siblingNode.getLeft() != null && isNodeRed(siblingNode.getLeft())) {
+                        if (siblingNode.isRightChild()) {
+                            siblingNode.getLeft().setColor(siblingNode.getColor());
+                            siblingNode.setColor(parNode.getColor());
+                            rotateRight(siblingNode);
                         } else {
-                            sibling.getLeft().setColor(par.getColor());
-                            rotateRight(par);
+                            siblingNode.getLeft().setColor(parNode.getColor());
+                            rotateRight(parNode);
                         }
                     } else {
-                        if (sibling.isRightChild()) {
-                            sibling.getRight().setColor(par.getColor());
-                            rotateLeft(par);
+                        if (siblingNode.isRightChild()) {
+                            siblingNode.getRight().setColor(parNode.getColor());
+                            rotateLeft(parNode);
                         } else {
-                            sibling.getRight().setColor(sibling.getColor());
-                            sibling.setColor(par.getColor());
-                            rotateLeft(sibling);
+                            siblingNode.getRight().setColor(siblingNode.getColor());
+                            siblingNode.setColor(parNode.getColor());
+                            rotateLeft(siblingNode);
                         }
                     }
-                    par.setColor(Color.BLACK);
+                    parNode.setColor(Color.BLACK);
                 } else {
-                    // Sibling has two black children, double black is pushed up to sibling
-                    sibling.setColor(Color.RED);
-                    if (isRed(par)) {
-                        par.setColor(Color.BLACK);
+                    // Sibling has two black children, double black is pushed up to siblingNode
+                    siblingNode.setColor(Color.RED);
+                    if (isNodeRed(parNode)) {
+                        parNode.setColor(Color.BLACK);
                     } else {
-                        handleDoubleBlackConflict(par);
+                        handleDoubleBlackConflict(parNode);
                     }
                 }
             } else {
-                // Sibling is red, rotate to make sibling black
-                sibling.setColor(Color.BLACK);
-                par.setColor(Color.RED);
-                if (sibling.isRightChild()) {
-                    rotateLeft(par);
-                    sibling = par.getRight();
+                // Sibling is red, rotate to make siblingNode black
+                siblingNode.setColor(Color.BLACK);
+                parNode.setColor(Color.RED);
+                if (siblingNode.isRightChild()) {
+                    rotateLeft(parNode);
+                    siblingNode = parNode.getRight();
                 } else {
-                    rotateRight(par);
-                    sibling = par.getLeft();
+                    rotateRight(parNode);
+                    siblingNode = parNode.getLeft();
                 }
                 handleDoubleBlackConflict(node);
             }

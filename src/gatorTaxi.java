@@ -136,7 +136,7 @@ public class gatorTaxi {
      * @param newTripDuration - new trip duration
      */
     private void updateTrip(Integer rideNumber, Integer newTripDuration) {
-        RedBlackTreeNode node = this.redBlackTree.search(rideNumber);
+        RedBlackTreeNode node = this.redBlackTree.redBlackTreeSearch(rideNumber);
         if(node != null && node.getValue().getRideNumber() == rideNumber){
             Integer oldTripDuration = node.getValue().getTripDuration();
             Integer oldRideCost = node.getValue().getRideCost();
@@ -155,7 +155,7 @@ public class gatorTaxi {
             {
                 MinHeapNode minHeapNodeToDelete = node.getPtrToMinHeapNode();
                 this.minHeap.deleteNode(minHeapNodeToDelete);
-                this.redBlackTree.deleteNode(node);
+                this.redBlackTree.redBlackTreeDeleteNodeUtils(node);
                 insert(rideNumber, oldRideCost + 10, newTripDuration);
             }
             /**
@@ -165,7 +165,7 @@ public class gatorTaxi {
             {
                 MinHeapNode minHeapNodeToDelete = node.getPtrToMinHeapNode();
                 this.minHeap.deleteNode(minHeapNodeToDelete);
-                this.redBlackTree.deleteNode(node);
+                this.redBlackTree.redBlackTreeDeleteNodeUtils(node);
             }
         }
     }
@@ -183,7 +183,7 @@ public class gatorTaxi {
          * If there are no ride, return no active ride requests msg
          */
         if (node != null){
-            this.redBlackTree.deleteNode(node.getPtrToRBTreeNode());
+            this.redBlackTree.redBlackTreeDeleteNodeUtils(node.getPtrToRBTreeNode());
             return node.getValue().toString();
         }
         else
@@ -199,7 +199,7 @@ public class gatorTaxi {
      * @return gator ride string if found
      */
     private String print(Integer rideNumber) {
-        RedBlackTreeNode node = this.redBlackTree.search(rideNumber);
+        RedBlackTreeNode node = this.redBlackTree.redBlackTreeSearch(rideNumber);
         if (node != null && node.getValue().getRideNumber() == rideNumber){
             return node.getValue().toString();
         }
@@ -245,11 +245,11 @@ public class gatorTaxi {
      * @param rideNumber - ride number
      */
     private void cancelRide(Integer rideNumber) {
-        RedBlackTreeNode nodeToDelete = this.redBlackTree.search(rideNumber);
+        RedBlackTreeNode nodeToDelete = this.redBlackTree.redBlackTreeSearch(rideNumber);
         if(nodeToDelete != null  && nodeToDelete.getValue().getRideNumber() == rideNumber){
             MinHeapNode minHeapNodeToDelete = nodeToDelete.getPtrToMinHeapNode();
             this.minHeap.deleteNode(minHeapNodeToDelete);
-            this.redBlackTree.deleteNode(nodeToDelete);
+            this.redBlackTree.redBlackTreeDeleteNodeUtils(nodeToDelete);
         }
     }
 
@@ -268,7 +268,7 @@ public class gatorTaxi {
         {
             return null;
         }
-        MinHeapNode minHeapNewNode = this.minHeap.insert(ride);
+        MinHeapNode minHeapNewNode = this.minHeap.insertNode(ride);
 
         //Update pointers to the nodes
         rbTreeNewNode.setPtrToMinHeapNode(minHeapNewNode);

@@ -5,15 +5,15 @@ public class MinHeap {
     private MinHeapNode[] minHeap;
 
     //Min heap current size
-    private Integer size;
+    private Integer currCapacity;
 
     //Maximum min heap capacity
-    private Integer capacity;
+    private Integer maxCapacity;
 
-    public MinHeap(Integer capacity) {
-        this.size = 0;
-        this.capacity = capacity;
-        this.minHeap = new MinHeapNode[this.capacity+1];
+    public MinHeap(Integer maxCapacity) {
+        this.currCapacity = 0;
+        this.maxCapacity = maxCapacity;
+        this.minHeap = new MinHeapNode[this.maxCapacity +1];
     }
 
     /**
@@ -21,14 +21,14 @@ public class MinHeap {
      * @param ride -gator taxi ride
      * @return new node
      */
-    public MinHeapNode insert(Ride ride) {
-        if (isFull()) {
+    public MinHeapNode insertNode(Ride ride) {
+        if (hasReachedMaxCapacity()) {
             return null;
         }
-        MinHeapNode newNode = new MinHeapNode(ride, size);
-        minHeap[size] = newNode;
-        heapifyUp(size);
-        size++;
+        MinHeapNode newNode = new MinHeapNode(ride, currCapacity);
+        minHeap[currCapacity] = newNode;
+        heapifyUp(currCapacity);
+        currCapacity++;
         return newNode;
     }
 
@@ -36,8 +36,8 @@ public class MinHeap {
      * Check if the min heap is full
      * @return Boolean value if the min heap is full
      */
-    private Boolean isFull() {
-        return size == minHeap.length - 1;
+    private Boolean hasReachedMaxCapacity() {
+        return currCapacity == minHeap.length - 1;
     }
 
     /**
@@ -46,7 +46,7 @@ public class MinHeap {
      * @param node2 - node 2
      * @return -1,0,1 based on node1 and node2 values
      */
-    private Integer compare(MinHeapNode node1, MinHeapNode node2) {
+    private Integer compareNodes(MinHeapNode node1, MinHeapNode node2) {
         /**
          * Compares ride cost
          */
@@ -73,7 +73,7 @@ public class MinHeap {
      * @param index1 - index
      * @param index2 - index
      */
-    private void swapNodes(Integer index1, Integer index2) {
+    private void swapNodesBasedOnIndex(Integer index1, Integer index2) {
         MinHeapNode temp = this.minHeap[index1];
         this.minHeap[index1] = this.minHeap[index2];
         this.minHeap[index2] = temp;
@@ -91,10 +91,10 @@ public class MinHeap {
         }
         //Remove the first node and replace it with the last node
         MinHeapNode minNode = new MinHeapNode(this.minHeap[0].getValue(), 0, this.minHeap[0].getPtrToRBTreeNode());
-        this.minHeap[0] = this.minHeap[size-1];
+        this.minHeap[0] = this.minHeap[currCapacity -1];
         this.minHeap[0].setIndex(0);
-        this.minHeap[size-1] = null;
-        this.size--;
+        this.minHeap[currCapacity -1] = null;
+        this.currCapacity--;
         //Heapify down to maintain the min heap property
         heapifyDown(0);
         return minNode;
@@ -106,7 +106,7 @@ public class MinHeap {
      * @return Boolean value checking if the min heap is empty
      */
     private boolean isEmpty() {
-        return size == 0;
+        return currCapacity == 0;
     }
 
     /**
@@ -117,14 +117,14 @@ public class MinHeap {
         // Get the index of the node to be deleted
         Integer index = node.getIndex();
         // Replace the node to delete with the last index node in the min heap and set the last node to null
-        this.minHeap[index] = this.minHeap[this.size-1];
+        this.minHeap[index] = this.minHeap[this.currCapacity -1];
         this.minHeap[index].setIndex(index);
-        this.minHeap[this.size-1] = null;
-        this.size--;
+        this.minHeap[this.currCapacity -1] = null;
+        this.currCapacity--;
 
         // Perform a heapify up or heapify down to maintain the heap property
         if(this.minHeap[index] != null){
-            if (index == 0 || compare(this.minHeap[index], this.minHeap[getParentIndex(index)]) >= 0) {
+            if (index == 0 || compareNodes(this.minHeap[index], this.minHeap[getParentIndex(index)]) >= 0) {
                 heapifyDown(index);
             } else {
                 heapifyUp(index);
@@ -137,22 +137,22 @@ public class MinHeap {
      * @param index - index
      */
     private void heapifyDown(Integer index) {
-        Integer left = index * 2 + 1;
-        Integer right = index * 2 + 2;
-        Integer minIndex = index;
+        Integer leftChild = index * 2 + 1;
+        Integer rightChild = index * 2 + 2;
+        Integer minimumIndex = index;
 
-        // Finds the minIndex of the node, left child and right child
-        if (left < size && compare(this.minHeap[left], this.minHeap[minIndex]) < 0) {
-            minIndex = left;
+        // Finds the minimumIndex of the node, leftChild child and rightChild child
+        if (leftChild < this.currCapacity && compareNodes(this.minHeap[leftChild], this.minHeap[minimumIndex]) < 0) {
+            minimumIndex = leftChild;
         }
-        if (right < size && compare(this.minHeap[right], this.minHeap[minIndex]) < 0) {
-            minIndex = right;
+        if (rightChild < this.currCapacity && compareNodes(this.minHeap[rightChild], this.minHeap[minimumIndex]) < 0) {
+            minimumIndex = rightChild;
         }
 
-        // If the current node is not the minimum index, swap it with the minIndex and heapify down
-        if (minIndex != index) {
-            swapNodes(index, minIndex);
-            heapifyDown(minIndex);
+        // If the current node is not the minimum index, swap it with the minimumIndex and heapify down
+        if (minimumIndex != index) {
+            swapNodesBasedOnIndex(index, minimumIndex);
+            heapifyDown(minimumIndex);
         }
     }
 
@@ -169,8 +169,8 @@ public class MinHeap {
         Integer par = (index - 1) / 2;
 
         // If the par is greater than the node, swap  and heapify up
-        if (compare(minHeap[index], minHeap[par]) < 0) {
-            swapNodes(index, par);
+        if (compareNodes(this.minHeap[index], this.minHeap[par]) < 0) {
+            swapNodesBasedOnIndex(index, par);
             heapifyUp(par);
         }
     }

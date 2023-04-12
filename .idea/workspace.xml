@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6592f9eb-c08c-4d36-a801-5a97a47ac842" name="Changes" comment="Update Classes">
-      <change afterPath="$PROJECT_DIR$/src/sample1.txt" afterDir="false" />
+    <list default="true" id="6592f9eb-c08c-4d36-a801-5a97a47ac842" name="Changes" comment="Update Null Ptr check">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/create_archive.sh" beforeDir="false" afterPath="$PROJECT_DIR$/create_archive.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MinHeap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MinHeap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/RedBlackTree.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RedBlackTree.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gatorTaxi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gatorTaxi.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -59,7 +59,7 @@
     <configuration name="gatorTaxi" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="gatorTaxi" />
       <module name="ADS_5536_PROJ" />
-      <option name="PROGRAM_PARAMETERS" value="sample1.txt" />
+      <option name="PROGRAM_PARAMETERS" value="input.txt" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -80,7 +80,7 @@
       <option name="presentableId" value="Default" />
       <updated>1680845847964</updated>
       <workItem from="1680845849588" duration="105258000" />
-      <workItem from="1681222108990" duration="26171000" />
+      <workItem from="1681222108990" duration="29609000" />
     </task>
     <task id="LOCAL-00001" summary="Changing Input File Reader Class Name">
       <created>1680849994509</created>
@@ -215,7 +215,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681251042732</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Update Null Ptr check">
+      <created>1681256193393</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1681256193394</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -247,7 +254,8 @@
     <MESSAGE value="Update Comments" />
     <MESSAGE value="Remove print statements" />
     <MESSAGE value="Update Classes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update Classes" />
+    <MESSAGE value="Update Null Ptr check" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update Null Ptr check" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
