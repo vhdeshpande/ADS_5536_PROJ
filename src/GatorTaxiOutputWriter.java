@@ -20,6 +20,7 @@ class GatorTaxiOutputWriter {
 
     /**
      * Initialize output file
+     *
      * @throws Exception
      */
     private void initOutputFile() throws Exception {
@@ -28,15 +29,17 @@ class GatorTaxiOutputWriter {
 
     /**
      * Write output string to output file
+     *
      * @param outputStr - output string
      * @throws Exception
      */
     public void writeOutputToFile(String outputStr) throws Exception {
-        this.outputFileWriter.write(String.format("%s\n",outputStr));
+        this.outputFileWriter.write(String.format("%s\n", outputStr));
     }
 
     /**
      * Close output writer
+     *
      * @throws Exception
      */
     public void closeOutputWriter() throws Exception {

@@ -14,6 +14,7 @@ public class GatorTaxiInputReader {
 
     /**
      * Read the operations from input file
+     *
      * @param inputFileName - input file name
      * @return list of operations read from the input file
      * @throws FileNotFoundException
@@ -34,6 +35,7 @@ public class GatorTaxiInputReader {
 
     /**
      * Creates an object for the operation to perform and its input values.
+     *
      * @param s - operation to perform string from the input file
      * @return operation to perform
      */
@@ -72,7 +74,7 @@ public class GatorTaxiInputReader {
                     inputStr = inputValues.split(",");
                     input1 = Integer.parseInt(inputStr[0]);
                     input2 = Integer.parseInt(inputStr[1]);
-                    Integer  input3 = Integer.parseInt(inputStr[2]);
+                    Integer input3 = Integer.parseInt(inputStr[2]);
                     gatorTaxiOperation = new GatorTaxiOperation(GatorTaxiOperationCode.Insert, input1, input2, input3);
                     break;
 
